@@ -1,0 +1,39 @@
+extends prices-template
+
+block append prebody
+  - var categoryName =  "Solo Division Boost"
+
+block append js
+  script(src="/js/prices/div-boost.js")
+  script(src="/js/prices/solo.js")
+  script(src="/js/prices/solo-div-boost.js")
+
+block prices-content
+  #solo-div-boost.category-div
+    .row
+      .col-sm-6.text-center(style="margin-bottom:1.25em")
+        h3 Current Division
+        img#division-boost-img-current(src="")
+        br
+        select#division-boost-current-tier.wide
+          for tier in soloDivisionBoostTiers
+            option= tier
+        br
+        select#division-boost-current-division.wide
+          for division in soloDivisionBoostDivs
+            option(value=division.discountedPrice, atomicPrice=division.atomicPrice, regularPrice=division.regularPrice) #{division.name}
+        select#division-boost-current-lp.wide
+          for value, key in lpRanges
+            option(value=value)= key
+      .col-sm-6.text-center
+        h3 Requested Division
+        div
+          img#division-boost-img-requested(src="")
+          br
+          select#division-boost-requested-tier.wide
+            for tier in soloDivisionBoostTiers
+              option= tier
+          br
+          select#division-boost-requested-division.wide
+            for division in soloDivisionBoostDivs
+              option(value=division.discountedPrice, atomicPrice=division.atomicPrice, regularPrice=division.regularPrice) #{division.name}

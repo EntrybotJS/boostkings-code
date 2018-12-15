@@ -1,0 +1,102 @@
+extends ../booster-template
+
+block append js
+  script.
+    var currentTodoCount = #{boosterOrders.length};
+    var currentPoolCount = #{poolOrders.length};
+    var completedCount = #{completedBoosterOrders.length};
+    var awaitingApprovalCount = #{ordersAwaitingApproval.length};
+
+    var sound = new Audio('/audio/easymoney.mp3');
+
+    function checkForNewOrders(){
+      $.get("/api/booster/#{user._id}/orders/count", function(counts){
+
+        var playAudio = false;
+
+        if(currentTodoCount != counts.todo){
+          updatePanels();
+
+          // play sound when an order is added to the todo list
+          if(counts.todo > currentTodoCount){
+            playAudio = true;
+          }
+
+          currentTodoCount = counts.todo;
+        }
+
+        if(currentPoolCount != counts.pool){
+          updatePanels();
+
+          // play sound when an order is added to the pool
+          if(counts.pool > currentPoolCount){
+            playAudio = true;
+          }
+
+          currentPoolCount = counts.pool;
+        }
+        
+        if(playAudio){
+          sound.play();
+        }
+      })
+    }
+
+    function updatePanels(){
+      $.get("/api/booster/#{user._id}/orders", function(panels){
+        $("#todoOrdersPanel").html(panels.todoHtml)
+        $("#poolOrdersPanel").html(panels.poolHtml)
+        $("#completedOrdersPanel").html(panels.doneHtml)
+        $("#ordersAwaitingApprovalPanel").html(panels.awaitingApprovalHtml)
+
+        $(".currentTodoCount").html(currentTodoCount)
+        $("#currentPoolCount").html(currentPoolCount)
+        $("#completedCount").html(completedCount)
+        $("#awaitingApprovalCount").html(awaitingApprovalCount)
+      })
+    }
+
+    $(function(){
+      updatePanels();
+      setInterval(checkForNewOrders, 5000);
+    })
+
+block booster-content
+  .container.container-paper
+    h1(style="margin-top:0;") Order dashboard
+    p.lead(style="margin:0;") This is your booster space.
+    
+    hr
+
+    .row
+      .col-md-6
+        h2
+          | My assigned orders 
+          .badge.currentTodoCount #{boosterStats.todo}
+        #todoOrdersPanel
+
+      .col-md-6
+        h2
+          | Available orders 
+          .badge#currentPoolCount #{boosterStats.pool}
+        #poolOrdersPanel
+        .panel.panel-default
+          .panel-body(style="background:#fafafa;")
+            h3(style="margin-top:0;") Message from admin
+            blockquote!= adminSettings.messageForBoosters
+            .small.faded
+              | Last updated on 
+              = moment(adminSettings.updatedAt).tz(moment.tz.guess()).format('LLLL')
+    hr
+    .row
+      .col-md-6
+        h2
+          | Orders awaiting approval 
+          .badge#awaitingApprovalCount #{boosterStats.awaitingApproval}
+        #ordersAwaitingApprovalPanel
+
+      .col-md-6
+        h2
+          | Completed orders 
+          .badge#completedCount #{boosterStats.done}
+        #completedOrdersPanel

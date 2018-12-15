@@ -1,0 +1,73 @@
+ul.nav.navbar-nav
+  if user
+    if user.isAdmin()
+      li(class=navId=="admin-orders" ? "active" : "")
+        a(href='/admin/orders') Orders
+      li(class=navId=="admin-boosters" ? "active" : "")
+        a(href='/admin/boosters') Boosters
+      li(class=navId=="admin-users" ? "active" : "")
+        a(href='/admin/users') Clients
+      li(class=navId=="prices" ? "active" : "")
+        a(href='/prices') Price calculator
+      li(class=navId=="admin-settings" ? "active" : "")
+        a(href='/admin/settings') Settings
+    
+    if user.isBooster()
+      li(class=navId=="booster-orders" ? "active" : "")
+        a(href='/booster/orders') My orders
+          .label.currentTodoCount #{boosterStats.todo}
+      //-
+        li(class=navId=="booster-orders-pool" ? "active" : "")
+          a(href='/booster/orders/pool') Available orders
+            .label  #{boosterStats.pool}
+      
+    if user.isUser()
+      li(class=navId=="user-orders" ? "active" : "")
+        a(href='/orders') My boosts
+      li(class=navId=="prices" ? "active" : "")
+        a(href='/prices') Purchase a boost
+      li(class=navId=="contact" ? "active" : "")
+        a(href='/contact') Contact
+  else
+    li(class=navId=="how-it-works" ? "active" : "")
+      a(href='/how-it-works') How it works
+    li(class=navId=="prices" ? "active" : "")
+      a(href='/prices') Our prices
+    li(class=navId=="faq" ? "active" : "")
+      a(href='/faq') FAQ
+    li(class=navId=="contact" ? "active" : "")
+      a(href='/contact') Contact
+    
+ul.nav.navbar-nav.navbar-right
+  if user && user.isUser()
+  //-
+    li.btn-nav
+      a(href="skype:boostingforyou?add")
+        .btn.btn-skype.btn Add us on Skype
+  //-
+    li.btn-nav
+      a(href="/contact")
+        .btn.btn-primary.btn Contact us
+
+  //-
+    li.btn-nav
+      a(href="/prices")
+        .btn.btn-primary.btn Get your boost
+
+  if user
+    li.dropdown
+      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+        | My account 
+        span.caret
+      ul.dropdown-menu
+        li
+          a(href='/account') Account settings
+        li
+          a(href='/logout') Log out
+  else
+    li.btn-nav
+      a(href="/login")
+        .btn Log in
+    li.btn-nav
+      a(href="/signup")
+        .btn.btn-primary Sign up

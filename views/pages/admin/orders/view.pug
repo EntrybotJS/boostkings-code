@@ -1,0 +1,190 @@
+extends ../admin-template
+
+block append js
+  if !order.isDone
+    include ../../../includes/chat-js
+
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css', rel='stylesheet')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css')
+
+  script.
+    $(document).ready(function() {
+      $('.select2').select2();
+    });
+
+block admin-content
+
+  div
+    if order.requiresApproval
+      .alert.alert-warning
+        div(style="float:right;")
+          form(method="post" style="margin-bottom:15px;")
+            input(type="hidden" name="_csrf" value=_csrf)
+            input(type="hidden" name="action" value="markAsDone")
+            button.btn.btn-sm.btn-success Mark as done ✔
+        | This order requires your approval.
+
+    .row
+      .col-sm-7
+        if order
+          div
+            | Order 
+            code #{order.confirmationNumber.toUpperCase()}
+            |  - 
+            span= moment(order.created_on).tz(moment.tz.guess()).format('LL')
+
+          h1(style="margin-top:10px;")= order.name
+          .label.label-default(style="background:"+order.getStatus().color)= order.getStatus().name
+          |  
+          .label.label-as-badge(style="background:"+order.getType().color)= order.getType().name
+          |  
+          .label.label-as-badge(style="background:"+order.getQueue().color)= order.getQueue().name
+          |  
+          .label.label-as-badge(style="background:"+order.getServer().color)= order.getServer().name
+          |  
+
+
+          hr
+
+          h3 Assigned booster
+          p
+            if order.isInThePool && order.booster
+              | ERROR (has a booster and is available to all)
+            else if !order.isInThePool && !order.booster
+              | There is currently no booster assigned to this order.
+            else if order.isInThePool
+              | None (currently available to all)
+            else if order.booster
+              = order.booster.email
+              if order && order.booster && order.booster.email && user && user.email && order.booster.email.toString() == user.email.toString()
+                |  (you)
+            else
+              | ERROR
+
+          
+          if !order.isDone
+            if boosters
+              div: strong Assign to a booster
+              form(method="post" style="margin-bottom:15px;")
+                input(type="hidden" name="_csrf" value=_csrf)
+                input(type="hidden" name="action" value="assign")
+                .form-group
+                  select(name="booster")
+                    for b in boosters
+                      option(value=b._id)= b.email
+                  button.btn.btn-sm.btn-primary Assign to booster
+              div
+                strong More options
+            
+            form(method="post" style="margin-bottom:15px; margin-right:10px; display:inline-block;")
+              input(type="hidden" name="_csrf" value=_csrf)
+              input(type="hidden" name="action" value="assign")
+              input(type="hidden" name="booster" value=user._id)
+              button.btn.btn-sm.btn-primary Assign to me
+            if !order.isInThePool
+              form(method="post" style="margin-bottom:15px; margin-right:10px; display:inline-block;")
+                input(type="hidden" name="_csrf" value=_csrf)
+                input(type="hidden" name="action" value="pool")
+                button.btn.btn-sm.btn-primary Make available to all boosters
+
+          hr
+
+          h3 Price details
+          table.table
+            tr
+              td Order total
+              td
+                .label.label-success
+                  | $
+                  = order.price.toFixed(2)
+                  |  USD
+            tr
+              td Booster cashout
+              td 
+                .label.label-success
+                  | $
+                  +calculateCashout(order.price)
+                  |  USD
+
+          if order.roles || order.champions || order.specialRequirements
+            hr
+            h3 Order details
+            table.table
+              if order.roles
+                tr(style="text-transform: capitalize;")
+                  td Roles
+                  td
+                    div
+                      b Primary
+                      |: 
+                      = order.roles["primary"]
+                    div
+                      b Secondary
+                      |: 
+                      = order.roles["secondary"]
+              if order.champions
+                tr(style="text-transform: capitalize;")
+                  td Champions
+                  td
+                    div
+                      b= order.roles["primary"]
+                      |: 
+                      = order.champions[order.roles["primary"]].join(", ")
+                    div
+                      b= order.roles["secondary"]
+                      |: 
+                      = order.champions[order.roles["secondary"]].join(", ")
+              if order.specialRequirements
+                tr
+                  td Special requirements
+                  td= order.specialRequirements
+          hr
+
+          div
+            h3 Client information
+            p
+              strong League of Legends account
+
+          - var hasInformation = false;
+
+          table.table
+            // TODO: fix the root cause of this "null" thing
+            if order.getType().prefix == "solo" && order.lolUsername && order.lolUsername != "null" && order.lolUsername != ""
+              tr
+                td Username
+                td
+                  code= order.lolUsername
+                  - hasInformation = true;
+            // TODO: fix the root cause of this "null" thing
+            if order.getType().prefix == "solo" && order.lolPassword && order.lolPassword != "null" && order.lolPassword != ""
+              tr
+                td Password
+                td
+                  code= order.lolPassword
+                  - hasInformation = true;
+            if order.lolIgn
+              tr
+                td IGN
+                td
+                  code= order.lolIgn
+                  - hasInformation = true;
+
+            if !hasInformation
+              p No data available.                  
+
+          div
+            hr
+            if !order.isDone
+              form(method="post" style="margin-bottom:15px;")
+                input(type="hidden" name="_csrf" value=_csrf)
+                input(type="hidden" name="action" value="markAsDone")
+                button.btn.btn-sm.btn-success Mark order as done ✔
+          
+        else
+            h3 Couldn't get order details.
+
+      .col-sm-5
+        div(style="margin-top:25px;")
+          include ../../../includes/chat-markup
+          +livechat("Conversation with client")

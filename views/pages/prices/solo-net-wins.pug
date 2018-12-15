@@ -1,0 +1,26 @@
+extends prices-template
+
+block append prebody
+  - var categoryName =  "Solo Net Wins"
+
+block append js
+  script(src="/js/prices/net-wins.js")
+  script(src="/js/prices/solo.js")
+  script(src="/js/prices/solo-net-wins.js")
+
+block prices-content
+  #solo-net-wins.category-div
+    .row
+      .col-sm-6.text-center(style="margin-bottom:1.25em")
+        h3(style="font-weight:400") Current Tier
+        img#net-wins-img-current(src="")
+        br
+        select#net-wins-current-tier.wide
+          for tier in soloNetWinsTiers
+            option(value=tier.regularPrice)= tier.name
+      .col-sm-6.text-center
+        h3(style="font-weight:400") Number of Net Wins
+        div#net-wins-number-label.number-label 0
+        input#net-wins-range(type="range" value="10" min="1" max="20" step="1")
+        div(style="margin-top:1em; color: #aaa")
+          p.small We guarantee the amount of net wins.

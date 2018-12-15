@@ -1,0 +1,24 @@
+extends prices-template
+
+block append prebody
+  - var categoryName =  "Duo Games"
+
+block append js
+  script(src="/js/prices/games.js")
+  script(src="/js/prices/duo.js")
+  script(src="/js/prices/duo-games.js")
+
+block prices-content
+  #duo-games.category-div
+    .row
+      .col-sm-6.text-center(style="margin-bottom:1.25em")
+        h3 Current Tier
+        img#games-img-current(src="")
+        br
+        select#games-current-tier.wide
+          for tier in duoGamesTiers
+            option(value=tier.regularPrice)= tier.name
+      .col-sm-6.text-center
+        h3 Number of Games
+        div#games-number-label.number-label 0
+        input#games-range(type="range" value="10" min="1" max="20" step="1")

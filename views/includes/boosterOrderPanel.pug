@@ -1,0 +1,36 @@
+include ../mixins/prices
+
+if orders && orders.length > 0
+  .row
+    for order in orders
+      .col-md-12
+        a(href="/booster/orders/view/"+order._id).order-panel
+          .panel.panel-default
+            .panel-body
+              div 
+                h3(style="margin:0 0 5px 0;")
+                  = order.name
+              .small
+                .label.label-success
+                  | $
+                  +calculateCashout(order.price)
+                  |  USD
+                |  
+                .label.label-as-badge(style="background:"+order.getType().color)= order.getType().name
+                |  
+                .label.label-as-badge(style="background:"+order.getQueue().color)= order.getQueue().name
+                |  
+                .label.label-as-badge(style="background:"+order.getServer().color)= order.getServer().name
+              hr(style="margin:0.5em auto;")
+              div
+                b Confirmation number: 
+                code=order.confirmationNumber.toUpperCase()
+              div(title= moment(order.created_on).tz(moment.tz.guess()).format('LLLL'))
+                | Ordered 
+                = moment(order.created_on).tz(moment.tz.guess()).fromNow()
+else
+  .panel.panel-default
+    .panel-body
+      .text-center
+        h3 No orders here
+        p This list is empty.

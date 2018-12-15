@@ -1,0 +1,81 @@
+extends admin-template
+
+mixin priceTable(name)
+  table.table
+    for a, idx in prices[name]
+      tr
+        td
+          label= a.name
+        td
+          .input-group
+            .input-group-addon USD $
+            input(type="number" min="0.00" step="0.01" name=name+"["+idx+"]["+a.name+"]" value=a.regularPrice).form-control
+
+block admin-content
+  include settings-nav
+
+  if prices
+    div(style="margin:0 auto;")
+
+      h1 Update prices
+
+      hr
+
+      form(method="post")
+
+        input(type="hidden", id="_csrf", name="_csrf", value=_csrf)
+
+        h2 Division Boost
+
+        p Enter the price to reach the division from the previous one.
+        .row
+          .col-md-6
+            h3 Solo Division Boost
+            +priceTable("soloDivBoost")
+
+          .col-md-6
+            h3 Duo Division Boost
+            +priceTable("duoDivBoost")
+
+        hr
+
+        h2 Placement Matches
+
+        p Enter the price per placement match.
+        .row
+          .col-md-6
+            h3 Solo Placement Matches
+            +priceTable("soloPlacementMatches")
+
+          .col-md-6
+            h3 Duo Placement Matches
+            +priceTable("duoPlacementMatches")
+
+        hr
+
+        h2 Net Wins
+
+        p Enter the price per net win.
+        .row
+          .col-md-6
+            h3 Solo Net Wins
+            +priceTable("soloNetWins")
+
+          .col-md-6
+            h3 Duo Net Wins
+            +priceTable("duoNetWins")
+
+        hr
+
+        h2 Games
+
+        p Enter the price per game.
+        .row
+          .col-md-6
+            h3 Duo Games
+            +priceTable("duoGames")
+
+        hr
+
+        .text-right
+          button.btn.btn-primary.btn-lg Update prices

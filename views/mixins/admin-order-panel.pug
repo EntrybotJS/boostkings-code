@@ -1,0 +1,28 @@
+mixin order-panel(order)
+  .col-md-6
+    a(href="/admin/orders/view/"+order._id).order-panel
+      .panel.panel-default
+        .panel-body
+          div 
+            h3(style="margin:0 0 5px 0;")
+              = order.name
+          .small
+            .label.label-default(style="background:"+order.getStatus().color)= order.getStatus().name
+            |  
+            .label.label-success
+              | $
+              +calculateCashout(order.price)
+              |  USD
+            |  
+            .label.label-as-badge.label-default= order.getType().name
+            |  
+            .label.label-as-badge.label-default= order.getQueue().name
+            |  
+            .label.label-as-badge.label-default= order.getServer().name
+          hr(style="margin:0.5em auto;")
+          div
+            b Confirmation number: 
+            code=order.confirmationNumber.toUpperCase()
+          div(title= moment(order.created_on).tz(moment.tz.guess()).format('LLLL'))
+            | Ordered 
+            = moment(order.created_on).tz(moment.tz.guess()).fromNow()

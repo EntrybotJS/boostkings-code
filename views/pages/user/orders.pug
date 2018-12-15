@@ -1,0 +1,44 @@
+extends user-template
+
+block user-content
+  .container-paper
+    if orders
+      h1 My Boosts
+      p These are your boost orders. You will receive an email when we complete an order.
+      br
+      .row
+        for order in orders
+          .col-md-6
+            a(href="/orders/"+order._id).order-panel(style="box-shadow:0 0 30px rgba(0,0,0,0.05);")
+              .panel.panel-default(style="border-radius:3px;border:none;")
+                .panel-body
+                  div(style="margin-bottom:0.75em")
+                    .label.label-default(style="background:"+order.getStatus().color)= order.getStatus().name
+                  div 
+                    h3(style="margin-top:0;")
+                      = order.name
+                  .small
+                    .label(style="color:#333; background:#eee; font-weight:normal;margin-right:0.3em;")= order.getQueue().name
+                    .label(style="color:#333; background:#eee; font-weight:normal;margin-right:0.3em;")= order.getServer().name
+                    .label(style="color:#333; background:#eee; font-weight:normal;")= order.getType().name
+                  hr(style="margin:0.5em auto;")
+                  div
+                    b Confirmation number: 
+                    code=order.confirmationNumber.toUpperCase()
+                  div(title= moment(order.created_on).tz(moment.tz.guess()).format('LLLL'))
+                    | Ordered 
+                    = moment(order.created_on).tz(moment.tz.guess()).fromNow()
+        .col-md-6
+          .panel.panel-default
+            .panel-body
+              .text-center
+                h3 Ready for another one?
+                hr
+                a.btn.btn-primary.btn-lg(href="/prices") Buy a boost
+                br
+                br
+    else
+      .text-center(style="padding:2em 0")
+        h1 No order... yet.
+        p You did not purchase a boost yet.
+        a.btn.btn-primary.btn-lg(href="/prices") Purchase a boost

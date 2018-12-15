@@ -1,0 +1,32 @@
+extends ../admin-template
+
+block admin-content
+  include ../settings-nav
+  div
+    h1
+      span(style="margin-right:15px;") Custom promocodes
+      a(href="/admin/promocodes/new").btn.btn-primary Create a promocode
+    br
+    if promocodes && promocodes.length > 0
+      table.table
+        tr
+          th Promocode
+          th Value
+          th Action
+        for pc in promocodes
+          tr
+            td
+              code= pc.code
+            td
+              if pc.type == "amount"
+                | USD $ 
+              = pc.value.toFixed(2)
+              if pc.type == "percentage"
+                | %
+            td
+              a(href="/admin/promocodes/" + pc._id).btn.btn-default Edit
+              |  
+              a(href="/admin/promocodes/" + pc._id + "/remove").btn.btn-danger Delete
+    else
+      p.lead No promocode yet.
+      a(href="/admin/promocodes/new").btn.btn-primary Create a promocode

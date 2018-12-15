@@ -1,0 +1,76 @@
+script(src="/js/vendor/socket.io.slim.js")
+script(src="/js/vendor/moment.min.js")
+script(src="/js/vendor/moment-timezone.min.js")
+script.
+  var notification = new Audio('/audio/chatnotification.mp3');
+  var socket = io.connect('http://localhost:3000');
+
+  var isFocused = true;
+
+  $(document).ready(function() {
+
+    $(window).focus(function(){
+        isFocused = true;
+    }).blur(function(){
+        isFocused = false;
+    });
+  
+    var socket = io.connect();
+
+    socket.emit('subscribe', "#{order._id}");
+
+    var messageForm = $('#send-message');
+    var messageBox = $('#message');
+    var chat = document.querySelector("#chat")
+    
+    chat.scrollTop = chat.scrollHeight;
+
+    messageForm.submit(function(e) {
+      e.preventDefault();
+
+      var data = {}
+      data.message = messageBox.val();
+      data.order = "#{order._id}"
+      data.user = "#{user._id}"
+      
+      socket.emit('send message', data);
+      messageBox.val('');
+    });
+    
+    socket.on('new message', function(data){
+      var html = ""
+      var playSound = false;
+      
+      var messageCssClass = "message"
+
+      var messageAuthor = null
+
+      if(data.userIsStaff){
+        messageAuthor = "BK Staff"
+      }
+
+      if (data.userIsStaff == #{user.isStaff()}) {
+        messageCssClass += " message--ours";
+        messageAuthor = "Me";
+      } else {
+        messageCssClass += " message--theirs"
+        playSound = true;
+      }
+      if(!messageAuthor){
+        messageAuthor = "Client"
+      }
+
+      html += "<div class='"+messageCssClass+"'>"
+      html += "<div class='small faded' title='"+moment(data.message.created_on).format('LLLL')+"'>" + moment(data.message.created_on).format('h:mma') + "</div>"
+      html += "<div class='bubble'>"+ data.message.message + "</div>"
+      html += "</div>"
+
+      $(chat).append(html);
+      
+      chat.scrollTop = chat.scrollHeight;
+
+      if(playSound && !isFocused){
+        notification.play();
+      }
+    });
+  });

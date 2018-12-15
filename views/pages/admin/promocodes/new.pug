@@ -1,0 +1,26 @@
+extends ../admin-template
+
+block admin-content
+  div
+    h1(style="margin-top:0;") New promocode
+    p.lead Add a new promocode for customers.
+
+    div(style="width:20em")
+      form(method="post")
+
+        input(type="hidden" name="_csrf" value=_csrf)
+
+        .form-group
+          label Code
+          input.form-control(style="font-family: monospace;" placeholder="Type in a name (e.g. 'summoner')" name="code")
+
+        .form-group
+          label Value
+          .input-group
+            input.form-control(placeholder="Type in a value (e.g. '5')" type='number', step=".01", name='value', required='required', value='0')
+            span.input-group-addon(style='width:0px; padding-left:0px; padding-right:0px; border:none;')
+            select#searchbygenerals_currency.form-control(name='unit')
+              option(value='percentage') %
+              option(value='amount') $ USD
+
+        button.btn.btn-primary(style="margin-top:10px;") Add promocode

@@ -1,0 +1,24 @@
+extends prices-template
+
+block append prebody
+  - var categoryName =  "Solo Placement Matches"
+
+block append js
+  script(src="/js/prices/placement-matches.js")
+  script(src="/js/prices/solo.js")
+  script(src="/js/prices/solo-placement-matches.js")
+
+block prices-content
+  #solo-placement-matches.category-div
+    .row
+      .col-sm-6.text-center(style="margin-bottom:1.25em")
+        h3 Last Season Ranking
+        img#placement-matches-img-current(src="")
+        br
+        select#placement-matches-current-tier.wide
+          for tier in soloPlacementMatchesTiers
+            option(value=tier.regularPrice)= tier.name
+      .col-sm-6.text-center
+        h3 Number of Matches
+        div#placement-matches-number-label.number-label 0
+        input#placement-matches-range(type="range" value="10" min="1" max="10" step="1")

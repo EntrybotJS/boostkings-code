@@ -1,0 +1,29 @@
+extends ../admin-template
+
+block admin-content
+  div
+    div(style="margin-top:10px;")
+      h1(style="display:inline-block;margin:0 15px 0 0;vertical-align:middle;") Boosters
+      a.btn.btn-primary(style="vertical-align:middle;" href="/admin/boosters/add") Add a booster
+    br
+    if boosters
+      table.table
+        tr
+          th Email
+          th Member since
+          th Boosts in progress
+          th Completed boosts
+          th Actions
+        for b in boosters
+          tr
+            td= b.email
+            td(title= moment(b.created_on).tz(moment.tz.guess()).format('LLLL'))
+              = moment(b.created_on).tz(moment.tz.guess()).fromNow()
+            td
+              =b.orders.inProgress
+            td
+              =b.orders.done
+            td
+              a.btn.btn-default(href="/admin/boosters/" + b._id) View boosts
+              |  
+              a.btn.btn-danger(href="/admin/boosters/" + b._id + "/remove") Remove

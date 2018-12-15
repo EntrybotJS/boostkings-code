@@ -1,0 +1,81 @@
+mixin calculateCashout(orderPrice)
+  - var price = (orderPrice - (orderPrice * 0.029) - 0.30) * 0.65
+  - price = price <= 0 ? 0 : price
+  span= price.toFixed(2)
+
+mixin stars(number)
+  div(style="display:inline-block;margin-left:10px;")
+    - var n = 0
+    while n < number
+      - n++
+      img(style="display:inline;width:10px;margin-right:2px;" src="/img/icons/star.svg")
+        
+mixin testimonials(shouldDisplayButton)
+  section#testimonials.section-image.section-image-2(style="padding-top: 1.5em;")
+    .container
+      .row
+        .col-sm-8.col-sm-offset-4.text-center
+          h2.text-center Here's what satisfied players have to say
+          div(style="margin-top:25px;")#testimonials-carousel
+            blockquote
+              p "This guy is legit, <b>boosted me from gold 5 to plat 5 in less than 2 days</b>. Very reliable, works hard to get your order done. Definitely recommend. Would try again, 10/10."
+              footer
+                | Toxic_Support
+                +stars(5)
+            blockquote
+              p "Amazing job to g5 and carries every game, <b>high kda and communicative, would definitely recommend</b>"
+              footer
+                | Sincrossgx
+                +stars(5)
+            blockquote
+              p "<b>Great Service</b>, kept me intact and <b>did the order in a timely matter</b>! Vouch 10/10"
+              footer
+                | Savant_Wolf
+                +stars(5)
+            blockquote
+              p "Good guy, <b>carried games hard</b>. Very honest and trustworthy."
+              footer
+                | Arelia
+                +stars(4)
+            blockquote
+              p "Vouch! Bought a few duo games to get through promos. <b>Can carry each game pretty hard</b> and games barely last that long. Thanks."
+              footer
+                | Xist
+                +stars(5)
+            blockquote
+              p "I ordered 2 duo games with him to finish my promo series to diamond 5. First game I fed top, our jungler and mid also fed, <b>this guy carried us like a boss</b>. Second game he stomped bot so hard enemy adc afk at fountain. He got over 16 kills each game."
+              footer
+                | bignoobqq
+                +stars(4)
+            blockquote
+              p "This guy is a beast, as soon as i purchased the boost he boosted it from diamond 5 to diamond 4 very quickly. <b>Talented, timely, and friendly</b> guy. <b>All future business with him</b>, excellent service."
+              footer
+                | dane517
+                +stars(5)
+            blockquote
+              p "Big time vouch. <b>Got my order within the day</b>! Communicated well at all times. <b>Would order from again big time</b>."
+              footer
+                | pandesal
+                +stars(5)
+            blockquote
+              p "Great guy to talk to. Great guy to carry. <b>Great customer service</b>. I would probably come back in the near future and ask for his service."
+              footer
+                | johnjake
+                +stars()
+          if shouldDisplayButton
+            a(href="/prices")
+              .btn.btn-primary.btn-lg.btn-spacing.glow-primary
+                span(style="font-weight:700") GET YOUR BOOST
+
+mixin testimonials-js()
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+  script.
+    $(document).ready(function(){
+      $('#testimonials-carousel').slick({
+        arrows: false,
+        autoplaySpeed: 4000,
+        autoplay: true,
+        adaptiveHeight: true
+      });
+    });

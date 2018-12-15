@@ -1,0 +1,63 @@
+extends ../../layouts/base
+
+block content
+
+  #prices.container
+
+    //- Unused Vue.js component
+    //- (could be useful in the future)
+    //-
+      #vue
+        test(
+          prop1="abc"
+          prop2="def"
+        )
+      
+    h1 Select your boost category.
+    .row
+      .col-sm-6
+        h2.prices-category-heading.prices-category-heading--solo Solo Boosts
+        p.lead Your booster uses your account.
+        a(href="/prices/solo-div-boost").price-category-box.price-category-box--solo-1
+          div(style="flex: 1")
+          div
+            strong Solo Division Boost
+            p A booster will play in your account until they reach your desired tier and division.
+        a(href="/prices/solo-net-wins").price-category-box.price-category-box--solo-2
+          div(style="flex: 1")
+          div
+            strong Solo Net Wins
+            p A booster will play in your account until they reach your desired number of net wins.
+        a(href="/prices/solo-placement-matches").price-category-box.price-category-box--solo-3
+          div(style="flex: 1")
+          div
+            strong Solo Placement Matches
+            p A booster will play your desired number of placement matches in your account.
+        div(style="opacity:0.35; -moz-user-select: none;-khtml-user-select: none;-webkit-user-select: none; -ms-user-select: none;user-select: none;").price-category-box.price-category-box--solo-4
+          div(style="flex: 1")
+          div
+            strong More boosts coming soon!
+
+      .col-sm-6
+        h2.prices-category-heading.prices-category-heading--duo Duo Boosts
+        p.lead You and your booster play along.
+        a(href="/prices/duo-div-boost").price-category-box.price-category-box--duo-1
+          div(style="flex: 1")
+          div
+            strong Duo Division Boost
+            p A booster will play along to help you reach your desired tier and division.
+        a(href="/prices/duo-net-wins").price-category-box.price-category-box--duo-2
+          div(style="flex: 1")
+          div
+            strong Duo Net Wins
+            p Get the help of a booster to reach a certain number of net wins.
+        a(href="/prices/duo-placement-matches").price-category-box.price-category-box--duo-3
+          div(style="flex: 1")
+          div
+            strong Duo Placement Matches
+            p Participate in placement matches along with a booster.
+        a(href="/prices/duo-games").price-category-box.price-category-box--duo-4
+          div(style="flex: 1")
+          div
+            strong Duo Games
+            p Play games along a booster who will help you win.

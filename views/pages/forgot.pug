@@ -1,0 +1,14 @@
+extends ../layouts/base
+
+block content
+  .container
+    div(style="max-width:600px; margin: 30px auto 60px auto;").container-paper
+      h1(style="margin-top:0;") Password Reset
+      p To reset your password, type in your email address below.
+      form(method='post')
+        input(type="hidden", id="_csrf", name="_csrf", value=_csrf)
+        .form-group
+          label(for='email') Your email address
+          input.form-control(type='text', name='email', placeholder="Email address", autofocus=true)
+        .text-center
+          button.btn.btn-primary(type="submit") Send Email

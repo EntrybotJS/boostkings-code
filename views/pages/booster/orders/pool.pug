@@ -1,0 +1,36 @@
+extends ../booster-template
+
+block booster-content
+  .container.container-paper
+    if orders && orders.length > 0
+      h1(style="margin-top:0;") Available orders
+      p These orders are available to all boosters. You can take responsibility for an order by viewing it and assigning it to yourself.
+      br
+      .row
+        for order in orders
+          .col-md-6
+            a(href="/booster/orders/view/"+order._id).order-panel
+              .panel.panel-default
+                .panel-body
+                  div 
+                    h3(style="margin:0 0 5px 0;")
+                      = order.name
+                  .small
+                    .label.label-as-badge(style="background:"+order.getType().color)= order.getType().name
+                    |  
+                    .label.label-as-badge(style="background:"+order.getQueue().color)= order.getQueue().name
+                    |  
+                    .label.label-as-badge(style="background:"+order.getServer().color)= order.getServer().name
+                  hr(style="margin:0.5em auto;")
+                  div
+                    b Confirmation number: 
+                    code=order.confirmationNumber.toUpperCase()
+                  div(title= moment(order.created_on).tz(moment.tz.guess()).format('LLLL'))
+                    | Ordered 
+                    = moment(order.created_on).tz(moment.tz.guess()).fromNow()
+
+    else
+      .text-center(style="padding:2em 0")
+        h1 There are no available orders at the moment.
+        p.lead
+          | New orders may be placed here by admins.

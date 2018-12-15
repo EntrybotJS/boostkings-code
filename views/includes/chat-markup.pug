@@ -1,0 +1,16 @@
+mixin livechat(header)
+  div#chat-container
+    #chat-header= header || "Live chat"
+    ul#chat
+      .text-center.small.faded(style="margin-bottom:15px;") This is the beginning of the conversation.
+      if previousMessages && previousMessages.length != 0
+        for message in previousMessages
+          .message(class=(user.isStaff() == message.user.isStaff()) ? "message--ours" : "message--theirs")
+            .small.faded(title=moment(message.created_on).format('LLLL'))
+              = moment(message.created_on).format('h:mma')
+            .bubble
+              =message.message
+
+    if !order.isDone
+      form#send-message
+        input#message(autofocus placeholder="Type your message here..." autocomplete="off")

@@ -1,0 +1,44 @@
+extends ../admin-template
+
+include ../../../mixins/admin-order-panel
+
+block admin-content
+  div
+    a(href="/admin/boosters") ← Back to all boosters
+    h1 Booster's boosts
+    p.lead
+      | These are 
+      = booster.email
+      | 's assigned boosts.
+    hr
+
+    if booster
+      h2
+        | Awaiting approval 
+        span.badge #{booster.orders.requiresApproval.length}
+      if booster.orders.requiresApproval && booster.orders.requiresApproval.length > 0
+        .row
+          for orderAwaitingApproval in booster.orders.requiresApproval
+            +order-panel(orderAwaitingApproval)
+      else
+        | None yet.
+
+      h2
+        | In progress 
+        span.badge #{booster.orders.inProgress.length}
+      if booster.orders.inProgress && booster.orders.inProgress.length > 0
+        .row
+          for orderInProgress in booster.orders.inProgress
+            +order-panel(orderInProgress)
+      else
+        | None yet.
+      
+      h2
+        | Completed 
+        span.badge #{booster.orders.done.length}
+      if booster.orders.done && booster.orders.done.length > 0
+        .row
+          for orderDone in booster.orders.done
+            +order-panel(orderDone)
+      else
+        | None yet.

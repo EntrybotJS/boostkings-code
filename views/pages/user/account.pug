@@ -1,0 +1,22 @@
+extends user-template
+
+block user-content
+  div(style="max-width:600px; margin: 0 auto 20px auto;").container-paper
+    if user
+      h1(style="margin-top:0;") Account settings
+
+      hr
+      
+      form(method="post" action="/account/updateEmailAddress")
+        input(type="hidden" name="_csrf" value=_csrf)
+        .form-group
+          label Email address
+          input(type="email" name="email" value=user.email, placeholder="Email address").form-control
+        input.btn.btn-primary(type="submit" value="Change email")
+
+      hr
+
+      p
+        | To change your password, use the 
+        a(href="/forgot") Password reset
+        |  page.

@@ -1,0 +1,16 @@
+extends ../admin-template
+
+block admin-content
+  div(style="margin-bottom:1em;")
+    h1 Are you sure?
+    p.lead 
+        | You are going to downgrade this account (
+        code #{booster.email}
+        | ) to a normal user.
+    p The booster won't be able to access their booster dashboard anymore, and will have the same permissions as a normal client.
+    p If you change your mind later, you will be able to add them back as booster.
+
+    if booster
+      form(method="post")
+        input(type="hidden" name="_csrf" value=_csrf)
+        button.btn.btn-danger(style="margin-top:10px;") Remove booster

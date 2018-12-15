@@ -1,0 +1,114 @@
+extends ../layouts/base
+
+//- TODO: add screenshots to this page
+
+block content
+  div(style="margin-top:20px;")
+    .container.container-narrow.container-paper
+      .row
+        .col-sm-3.hidden-xs
+          img(style="width:80%;" src="/img/icons/user.svg")
+        .col-sm-9
+          h1(style="margin-top:0;") 1. Create Your Account
+          hr(style="border:4px solid #FFE100;")
+          p Before purchasing a boost, you must create an account. This way, we can send you email notifications regarding your boost status.
+          a(href="/signup")
+            .btn.btn-primary.btn-lg.btn-spacing.glow-primary
+              strong CREATE AN ACCOUNT
+      
+      hr(style="margin:3em 0;")
+      
+      .row
+        .col-sm-9
+          h1(style="margin-top:0;") 2. Choose Your Boost
+          hr(style="border:4px solid #FFE100;")
+          p Depending on <b>what kind of ELO/MMR boost you want</b>, you need to let your booster know what they should be doing! Here are the boosting categories we offer:
+          ul
+            li Division Boosting (up to Master)
+            li Placement Matches
+            li Net Wins
+            li Games
+          p In the case of a solo boost, you can select your primary and secondary roles, as well as specific champions that you'd like your booster to play as.
+          p You'll be invited to provide the relevant <b>information required to complete your boost</b>.
+          h3 For Solo Boosts
+          ul
+            li The username of the account to boost
+            li The password of that same account
+          h3 For Duo Boosts
+          ul
+            li The IGN (In-Game Name) of the account to boost
+          p.small.faded Your player account information is encrypted at rest using AES-256 encryption. Upon boost completion, it is completely deleted.
+          hr
+          p <b>You will receive a confirmation email</b> with your chosen boost information when you complete the payment process.
+          br
+          a(href="/prices")
+            .btn.btn-primary.btn-lg.btn-spacing
+              strong CHOOSE YOUR BOOST
+        .col-sm-3.text-right.hidden-xs
+          img(style="width:80%;" src="/img/icons/check-dark.svg")
+      
+      hr(style="margin:3em 0;")
+      
+      .row
+        .col-sm-3.text-left.hidden-xs
+          img(src="/img/icons/chat.svg" style="width:80%")
+        .col-sm-9
+          h1(style="margin-top:0;") 3. Chat With Your Booster
+          hr(style="border:4px solid #FFE100;")
+          p <b>Once a booster is assigned to your order</b>, you'll be able to live chat with them, right here on Boost Kings, to schedule your boost and follow up on the process.
+
+      hr(style="margin:3em 0;")
+
+      .row
+        .col-sm-9
+          h1(style="margin-top:0;") 4. We Complete The Boost
+          hr(style="border:4px solid #FFE100;")
+          p The actual boosting. Here it is. Let us handle everything while you think about the world of possibilities that's opening up to you.
+          p: b You will receive an email when we'll complete your boost. Check your spam folder if you don't see it.
+        .col-sm-3.text-right.hidden-xs
+          img(src="/img/icons/chevron-up.svg" style="width:80%")
+
+      hr(style="margin:3em 0;")
+
+      .row
+        .col-sm-3.text-left.hidden-xs
+          img(src="/img/icons/star.svg" style="width:80%")
+        .col-sm-9
+          h1(style="margin-top:0;") 5. Profit!
+          hr(style="border:4px solid #FFE100;")
+          p Now that your boost is complete, <b>have fun and enjoy it</b>! Don't forget to <b>let us know about your experience</b> so that we can improve our service.
+
+      hr(style="margin:2em 0;")
+
+      div.text-center
+        a(href="/prices")
+          .btn.btn-primary.btn-lg.btn-spacing.glow-primary(style="font-size:1.25em; width:100%;")
+            | GET YOUR BOOST
+
+
+  div(style="padding:3em 0")
+    .container
+      .row
+        .col-sm-6
+          h1 Join us on Discord!
+          p.lead You'll feel right at home on our Discord server.
+          ul
+            li Chat with experienced boosters
+            li Hang out with other players
+            li Learn from the best
+          p: b What are you waiting for?
+          p: a(href="https://discord.gg/bH32vbS" target="_blank").btn.btn-primary.btn-lg.btn-invert Join server now
+        .col-sm-6.text-right
+          script(type='text/javascript', src='//cdn.jsdelivr.net/discord-widget/latest/discord-widget.min.js')
+          script(type='text/javascript').
+            discordWidget.init({
+              serverId: '405433042639912960',
+              join: false,
+              alphabetical: false,
+              theme: 'none',
+              hideChannels: true,
+              showAllUsers: true,
+              allUsersDefaultState: true
+            });
+            discordWidget.render();
+          .discord-widget(style="background:rgba(0,0,0,0.1); padding:1.25em; border-radius:3px; max-height:300px; overflow-y:scroll;")

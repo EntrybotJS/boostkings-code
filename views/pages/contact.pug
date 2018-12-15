@@ -1,0 +1,32 @@
+extends ../layouts/base
+
+block content
+  style.
+    #footer {
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+
+  .section-image.section-image-3
+    .container.container-v-padding
+      .row
+        .col-md-8
+          .container-paper
+            h2(style="margin-top:0;") Get in touch with us!
+            small We try to reply to every email we receive.
+            br
+            br
+            form#contact-form(action='https://formspree.io/boostkings@outlook.com', method='POST')
+              input(type='text', name='name' placeholder="Your name")
+              br
+              input(type="email" name="_replyto" placeholder="Your email address")
+              br
+              textarea(style="resize:vertical; min-height:70px; max-height:200px;" name="message" placeholder="Your message")
+              br
+              button.btn.btn-primary.btn-lg.btn-block(class="button") Send
+        .col-md-4.text-right
+          <iframe src="https://discordapp.com/widget?id=405433042639912960&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+
+block attribution
+  div
+    .attribution <a href="http://singularity01.deviantart.com/art/League-of-Legends-Render-Ahri-544878691">League of Legends Render: Ahri</a> by <a href="http://singularity01.deviantart.com/">Singularity01</a>
+  br

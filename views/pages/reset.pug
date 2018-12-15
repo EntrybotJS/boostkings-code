@@ -1,0 +1,16 @@
+extends ../layouts/base
+
+block content
+  .container
+    div(style="max-width:600px; margin: 30px auto 60px auto;").container-paper
+      h1(style="margin-top:0;") Password Reset
+      form(method='post')
+        input(type="hidden", id="_csrf", name="_csrf", value=_csrf)
+        .form-group
+          label(for='password') New Password
+          input.form-control(type='password', name='password', value='', placeholder='New password', autofocus=true)
+        .form-group
+          label(for='confirm') Confirm Password
+          input.form-control(type='password', name='confirm', value='', placeholder='Confirm password')
+        .text-center
+          button.btn.btn-primary(type="submit") Update Password

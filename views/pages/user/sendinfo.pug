@@ -1,0 +1,44 @@
+extends user-template
+
+block append js
+  script.
+    $(function(){
+      $("#tawkto_wrapper").find("iframe").css("width", "100% !important")
+    })
+
+block user-content
+  .container(style="max-width:40em").container-paper
+    h1(style="margin-top:0") Order confirmation
+    p.lead
+      | Thank you for your boost order. Don't hesitate to 
+      a(href="/contact") contact us
+      | !
+    hr
+    h3 Boost details
+    table.table
+      tr
+        td: strong Confirmation number
+        td: code #{order.confirmationNumber.toUpperCase()}
+      tr
+        td: strong Name
+        td #{order.name}
+      tr
+        td: strong Type
+        td #{order.getType().name}
+      tr
+        td: strong Queue
+        td #{order.getQueue().name}
+      tr
+        td: strong Server
+        td #{order.getServer().name}
+      tr
+        td: strong Date
+        td #{moment(order.created_on).format('LLLL')}
+
+    hr
+    p We just sent you a confirmation email for this order. Be sure to check your spam folder if you don't see it.
+    
+    p To keep up with your order status, view your order details here:
+
+    a.btn.btn-primary(style="text-decoration:none;" href="/orders/"+order._id)
+      | View order

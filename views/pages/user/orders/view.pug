@@ -1,0 +1,57 @@
+extends ../user-template
+
+block append js
+  if order && !order.isDone
+    include ../../../includes/chat-js
+
+  if !order.booster
+    // refresh the page until a booster is assigned
+    script.
+      function checkForBooster(){
+        $.get("/api/order/#{order._id}/", {user: "#{user._id}"}, function(order){
+          if(order && order.hasBooster){
+            location.reload();
+          }
+        })
+      }
+      $(function(){
+        setInterval(checkForBooster, 5000)
+      })
+
+block user-content
+  .container-paper(style="max-width:50em;")
+    if order
+      div
+        | Order 
+        code #{order.confirmationNumber.toUpperCase()}
+        |  - 
+        span= moment(order.created_on).tz(moment.tz.guess()).format('LL')
+
+      h1(style="margin-top:10px;")= order.name
+      .label.label-default(style="background:"+order.getStatus().color)= order.getStatus().name
+      |  
+      .label(style="color:#333; background:#eee; font-weight:normal;")= order.getType().name
+      |  
+      .label(style="color:#333; background:#eee; font-weight:normal;")= order.getQueue().name
+      |  
+      .label(style="color:#333; background:#eee; font-weight:normal;")= order.getServer().name
+      if order.isDone
+        div(style="margin-top:25px; padding:25px; border:1px solid #eee;").text-center
+          img(style="width:30px;" src="/img/icons/star.svg")
+          h3 Boost completed
+          p.small Thanks for using our services and don't hesitate to ask us for more!
+          a.btn.btn-primary(href="/prices") Buy another boost
+      else
+        if order.booster
+          div(style="margin-top:25px;")
+            include ../../../includes/chat-markup
+            +livechat("Conversation with your booster")
+        else
+          div(style="margin-top:25px; padding:25px; border:1px solid #eee;").text-center
+            img(style="width:30px;" src="/img/icons/user.svg")
+            h3 No assigned booster yet
+            p.small Once we assign a booster to complete your order, you will be able to live chat with them.
+              br
+              | Please come back later to check the order status.
+    else
+        h3 No orders.

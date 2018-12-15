@@ -1,0 +1,10 @@
+extends ../layouts/base
+
+block content
+  .container.container-v-padding.text-center
+    h1
+      code
+        | Error 
+        = error.status
+    h2 Hmm. There was a problem loading this page.
+    p Sorry about that. Let us know about this error by <a href="/contact">contacting us</a>, then try going back to the <a href="/">main page</a>.

@@ -1,0 +1,58 @@
+extends ../admin-template
+
+block admin-content
+    ul.list-inline
+      li: strong Lists
+      li: a.btn.btn-default(href="/admin/orders/") Awaiting a booster
+      li: a.btn.btn-default(href="/admin/orders/pool") Available to all
+      li: a.btn.btn-default(href="/admin/orders/in-progress") In progress
+      li: a.btn.btn-default(href="/admin/orders/requiring-approval") Requiring approval
+      li: a.btn.btn-default(href="/admin/orders/completed") Completed
+      li: a.btn.btn-default(href="/admin/orders/all") All
+    hr
+    h1= pageTitle
+    p.lead= pageDescription
+    
+    if orders && orders.length > 0
+      .row
+        for order in orders
+          .col-md-6
+            a(href="/admin/orders/view/"+order._id).order-panel
+              .panel.panel-default
+                .panel-body
+                  div(style="margin-bottom:0.75em")
+                    .label.label-default(style="background:"+order.getStatus().color)= order.getStatus().name
+                  div 
+                    h3(style="margin-top:0;")
+                      = order.name
+                  .small
+                    .label.label-as-badge(style="background:"+order.getServer().color)= order.getServer().name
+                    |  
+                    .label.label-as-badge(style="background:"+order.getQueue().color)= order.getQueue().name
+                    |  
+                    .label.label-as-badge(style="background:"+order.getType().color)= order.getType().name
+                  hr(style="margin:0.5em auto;")
+                  div
+                    b Assigned booster: 
+                    if order.isInThePool && order.booster
+                      | ERROR (has a booster and is available to all)
+                    else if !order.isInThePool && !order.booster
+                      | None
+                    else if order.isInThePool
+                      | None (is available to all)
+                    else if order.booster
+                      = order.booster.email
+                      if order && order.booster && order.booster.email && user && user.email && order.booster.email.toString() == user.email.toString()
+                        |  (you)
+                    else
+                      | ERROR
+                  div
+                    b Confirmation number: 
+                    code=order.confirmationNumber.toUpperCase()
+                  div(title= moment(order.created_on).tz(moment.tz.guess()).format('LLLL'))
+                    | Ordered 
+                    = moment(order.created_on).tz(moment.tz.guess()).fromNow()
+
+    else
+      .text-center(style="padding:2em 0")
+        h2 This list is empty.

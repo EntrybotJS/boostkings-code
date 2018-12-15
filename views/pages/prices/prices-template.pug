@@ -1,0 +1,92 @@
+extends ../../layouts/base
+
+block append js
+
+  script.
+    var myFunction;
+    $(function(){
+      myFunction = function() {
+        // Declare variables
+        var input, filter, ul, li, a, i;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("champions-lists");
+        li = ul.getElementsByTagName('li');
+          // Loop through all list items, and hide those who don't match the search query
+          for (i = 0; i < li.length; i++) {
+              a = li[i].getElementsByTagName("a")[0];
+              if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                  li[i].style.display = "";
+              } else {
+                  li[i].style.display = "none";
+              }
+          }
+      }
+    })
+
+  //-
+    script.
+      $(document).ready(function() {
+        $('select').niceSelect({class: "wide"});
+      });
+
+  +testimonials-js()
+
+  script.
+    var csrfToken = "#{_csrf}"
+  script(type="text/javascript" src='/js/vendor/exit-bounce.js')
+  script(type="text/javascript" src="/js/prices/global.js")
+  
+  if user
+    script.
+      var paypalFrontendMode = "#{paypalFrontendMode}"
+      boostOrder.userId = "#{user.id}"
+      boostOrder.userEmail = "#{user.email}"
+    script(src="https://www.paypalobjects.com/api/checkout.js")
+    script(src="/js/prices/global-logged-in.js")
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
+
+  //- Unused Vue.js bundle
+  //- script(src="/js/bundle.js")
+
+block content
+  #modal.modal(style="display:none;")
+    .modal-content
+      .modal-content--content.section-image.section-image-3
+        - var percent = adminSettings.exitRebatePercentage
+        .modal-content--header Get #{percent}% off
+        p.lead
+          b Don't leave just yet!
+          br 
+          | Here's a promo code for #{percent}% off: 
+          br
+          code(style="font-size:1.35em;margin-top:10px;")
+            | BK#{percent}OFF
+          if !user
+            .small
+              | Psst... you need to 
+              a(href="/signup") create an account
+              br
+              |  before completing your order.
+
+      .modal-content--footer
+        .btn.btn-lg.btn-primary#closemodal Thanks!
+
+  #prices.container(style="margin-bottom:1em")
+    h1(style="margin: 0 0 0.8em 0;")= categoryName
+    .row
+      .col-md-8
+        .container-paper
+          block prices-content
+      .col-md-4
+        div
+          include ../../includes/orderPayment
+
+      //-
+        if ordersStatus.isDisabled
+          .alert.alert-info Orders are currently disabled, but you can still browse our boost offering. Come back on #{ordersStatus.newSeasonStart}!
+
+  #testimonials
+    +testimonials(false)

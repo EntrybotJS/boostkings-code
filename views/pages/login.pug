@@ -1,0 +1,21 @@
+extends ../layouts/base
+
+block content
+  .container
+    div(style="max-width:500px; margin: 15px auto 45px auto;").container-paper
+      h1(style="margin-top:0;") Log in
+      form(action='/login', method='post')
+        input(type="hidden", id="_csrf", name="_csrf", value=_csrf)
+        .form-group
+          label Email address
+          input(type='text', name='username' placeholder="Email address" autofocus=true).form-control
+        .form-group
+          label Password
+          input(type='password', placeholder="Password" name='password').form-control
+        .text-center
+          button.btn.btn-primary.btn-block(type="submit") Log in
+          hr
+          .small
+            a(href="/forgot") I forgot my password
+            |  &middot; 
+            a(href="/signup") I want to create an account

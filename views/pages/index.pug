@@ -1,0 +1,120 @@
+extends ../layouts/base
+
+block append js
+  +testimonials-js()
+  script(src='/js/vendor/particles.min.js')
+  script.
+    $(function(){
+      particlesJS.load('particles-js', '/js/vendor/particles.json')
+      $("#jumbotron-bg").addClass("jumbotron--bg-" + Math.floor((Math.random() * 11) + 1)).css("opacity", "1")
+    })
+
+block content
+  .jumbotron
+    #jumbotron-bg
+    #particles-js
+    .container
+      p
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+      h1(style="font-size:4em;") Let's boost you up.
+      h2 
+        | We are the 
+        span.text-primary fastest
+        |  and most 
+        span.text-primary reliable
+        |  League of Legends boosters.
+      h3(style="font-weight:400;")
+        | Our boosts have made 
+        | more than 5000
+        |  happy gamers so far. Why not be the next?
+      br
+      div
+        a(href="/prices" style="margin-right:1em;")
+          .btn.btn-primary.btn-lg.glow-primary
+            span(style="font-weight:700") GET YOUR BOOST
+        | 
+        a(href="#jump")
+          .btn.btn-primary.btn-lg.btn-invert
+            | Learn more
+
+  section.section-image.section-image-1#jump
+    .container
+      .row
+        .col-sm-8
+          h1 We are professional boosters.
+          p
+            | Our growing team of experienced boosters is there to help you out. We do <b>Divisions Boosts up to Master</b>, <b>Placement Matches</b>, <b>Games</b>, and <b>Net Wins</b>. We offer the fastest and most reliable boosting services possible on the market thanks to timely communication with you and our boosters' experience. Learn  
+            a(href="/how-it-works") How It Works
+            |  and 
+            a(href="/faq") read our FAQ
+            | !
+          div(style="margin-top:20px")
+            a(href="/prices")
+              .btn.btn-primary.btn-spacing.btn-lg.glow-primary
+                span(style="font-weight:700") SEE OUR PRICES
+
+  section#features
+    .container.text-center
+      div
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+        img(style="width:20px;margin-right:12px;" src="/img/icons/star.svg")
+      h2(style="margin-top:0;") Satisfaction guaranteed.
+      p Our ELO/MMR boosting services are sure to please you.
+      .row
+        .col-sm-4
+          h3 Secure
+          img(src="/img/icons/lock.svg")
+          p We always use a VPN when boosting.
+        .col-sm-4
+          h3 Fast
+          img(src="/img/icons/lightning.svg")
+          p We're fast. Real fast.
+        .col-sm-4
+          h3 Professional
+          img(src="/img/icons/check.svg")
+          p We've been boosting for years.
+
+  div(style="margin-top:1.25em")
+    +testimonials(true)
+
+  div(style="padding:3em 0")
+    .container
+      .row
+        .col-sm-6
+          h1 Join us on Discord!
+          p.lead You'll feel right at home on our Discord server.
+          ul
+            li Chat with experienced boosters
+            li Hang out with other players
+            li Learn from the best
+          p: b What are you waiting for?
+          p: a(href="https://discord.gg/bH32vbS" target="_blank").btn.btn-primary.btn-lg.btn-invert Join server now
+        .col-sm-6.text-right
+          script(type='text/javascript', src='//cdn.jsdelivr.net/discord-widget/latest/discord-widget.min.js')
+          script(type='text/javascript').
+            discordWidget.init({
+              serverId: '405433042639912960',
+              join: false,
+              alphabetical: false,
+              theme: 'none',
+              hideChannels: true,
+              showAllUsers: true,
+              allUsersDefaultState: true
+            });
+            discordWidget.render();
+          .discord-widget(style="background:rgba(0,0,0,0.1); padding:1.25em; border-radius:3px; max-height:300px; overflow-y:scroll;")
+
+
+
+block attribution
+  div
+    .attribution <a href="http://zero0kiryu.deviantart.com/art/Nami-The-Tidecaller-League-Of-Legends-Render-1-343723093">Nami the Tidecaller Render</a> by <a href="http://zero0kiryu.deviantart.com/">zero0kiryu</a>
+    .attribution <a href="http://uberwild.deviantart.com/art/PROJECT-Ashe-Render-League-of-Legends-621373860">Ashe Render</a> by <a href="http://uberwild.deviantart.com/">UberWild</a>
+  br

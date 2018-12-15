@@ -1,0 +1,55 @@
+extends ../layouts/base
+
+block append js
+  script.
+    var originalBorderColor;
+
+    $(function(){
+      originalBorderColor = $("#password").css("border-color")
+    });
+
+    function confirmPassword() {
+      var password = document.getElementById("password").value;
+      var confirm = document.getElementById("confirm").value;
+      
+      var ok = true;
+      if (password != confirm || password.length < 8 || confirm.length < 8) {
+        document.getElementById("password").style.borderColor = "#E34234";
+        document.getElementById("confirm").style.borderColor = "#E34234";
+        ok = false;
+      }
+      else {
+        document.getElementById("password").style.borderColor = originalBorderColor;
+        document.getElementById("confirm").style.borderColor = originalBorderColor;
+      }
+      return ok;
+    }
+    $( "#password, #confirm" ).keyup(function() {
+      confirmPassword();
+    });
+
+block content
+  .container
+    div(style="max-width:500px; margin: 0 auto 30px auto;").container-paper
+      h1(style="margin-top:0;") Sign up
+      form(action='/signup' method='post')
+        input(type="hidden", id="_csrf", name="_csrf", value=_csrf)
+        .form-group
+          label Email address
+          input(type='text', name='email' placeholder='Email address' autofocus=true).form-control
+        //-
+          .form-group
+            label Username
+            input(type='text', name='username').form-control
+        .form-group
+          label(for='password') Password 
+            span.small(style="color:#888; font-weight:normal;")  (at least 8 characters)
+          input.form-control(type='password', id='password', name='password', value='', placeholder='Password')
+        .form-group
+          label(for='confirm') Confirm Password
+          input.form-control(type='password', id='confirm', name='confirm', value='', placeholder='Confirm password')
+        .text-center
+          button.btn.btn-primary(type="submit") Create my account
+          hr
+          .small
+            a(href="/login") I already have an account

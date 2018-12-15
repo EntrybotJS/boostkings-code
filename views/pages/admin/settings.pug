@@ -1,0 +1,33 @@
+extends admin-template
+
+block append js
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/tinymce.min.js")
+  script.
+    tinymce.init({
+        selector: "textarea",
+        plugins: "autoresize",
+        toolbar: "bold italic",
+        branding: false,
+        menubar: false,
+        statusbar: false
+    });
+
+block admin-content
+  div(style="margin: 0 auto")
+    include settings-nav
+    h1 General settings
+    p.lead These settings are global to the entire Boost&nbsp;Kings platform.
+    hr
+    form(method="POST")
+      input(type="hidden" name="_csrf" value=_csrf)
+      .form-group
+        label Message for boosters
+        textarea(name="messageForBoosters").form-control= adminSettings.messageForBoosters
+      p.small.faded All boosters will see this message on "View boost" pages.
+
+      .form-group
+        label Exit popup discount percentage
+        input(placeholder="Type a round number (i.e. 5)" name="exitRebatePercentage" value=adminSettings.exitRebatePercentage).form-control
+      p.small.faded Type in a round number (i.e. "5" for 5% off).
+      
+      button.btn.btn-primary Save settings

@@ -1,0 +1,16 @@
+extends ../admin-template
+
+block admin-content
+  div(style="margin-bottom:1em;")
+    h1 Are you sure?
+    p.lead 
+        | You are going to delete the 
+        code #{promocode.code}
+        |  promocode.
+    p The promocode won't exist anymore, and clients won't be able to use it anymore.
+    p If you change your mind later, you can create a new promocode with the same name.
+
+    if promocode
+      form(method="post")
+        input(type="hidden" name="_csrf" value=_csrf)
+        button.btn.btn-danger(style="margin-top:10px;") Delete promocode

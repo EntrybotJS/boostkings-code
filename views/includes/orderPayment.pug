@@ -1,0 +1,196 @@
+mixin championList(roleKey)
+  div(style="padding:1em; background-color: #fafafa; border: 1px solid #eeeeee;")
+    h3= roleKey.charAt(0).toUpperCase() + roleKey.slice(1)
+    .row
+      for value, key in champions[roleKey]
+        .col-md-6
+          li.champion-box(champion=value role=roleKey style="list-style-type: none; padding:5px; margin:0; margin-bottom:2px;")
+            img(style="pointer-events:none; border-radius:2px; margin-right:7px; width:30px;" src="/img/champions/" + key + ".png")
+            a(style="pointer-events:none; display:inline-block;")= value
+
+if user && boostCategory == "solo"
+  div(style="background: #23283c; padding:1em; border-radius:2px; margin-bottom:1em")
+    p
+      strong Additional options
+    button#btn-choose-roles(type='button', data-toggle='modal', style="border:none;" data-target='#roles-picker-modal').btn.btn-block.btn-dark
+      | Choose roles 
+      span#roles-btn-checkmark(style="display:none;")  ✓
+    button#btn-choose-champions(type='button', data-toggle='modal', disabled="disabled" style="border:none;" data-target='#champions-picker-modal').btn.btn-block.btn-dark
+      | Choose champions 
+      span#champions-btn-checkmark(style="display:none;")  ✓
+
+div(style="background: #23283c; padding:1em; border-top: 5px solid #464d6b; border-radius:2px;")
+  | Order total
+  h2(style="margin-top:0")
+    span.order-price-tag 0$
+
+  if user
+    if !user.isAdmin()
+      div(style="margin-top:1em")
+        button(type='button', data-toggle='modal', data-target='#payment-modal').btn.btn-primary.btn-lg.btn-block.glow-primary Checkout now
+  else
+    div(style="margin-top:1em")
+      a(href="/signup").btn.btn-lg.btn-primary.btn-block Sign up to checkout
+
+if user
+  //- Roles modal
+  #roles-picker-modal.modal.fade(data-backdrop="static" data-keyboard="false" role='dialog' style="color: #333")
+    .modal-dialog
+      .modal-content(style="max-width:500px;")
+        .modal-body
+          h2(style="margin-top:0;") Roles
+          p Specify primary and secondary roles. 5% extra.
+          .role-box(role="top")
+            img(style="pointer-events:none;" src="/img/icons/roles/top.png")
+            span(style="pointer-events:none;") Top
+          .role-box(role="jungle")
+            img(src="/img/icons/roles/jungler.png")
+            span(style="pointer-events:none;") Jungle
+          .role-box(role="mid")
+            img(src="/img/icons/roles/middle.png")
+            span(style="pointer-events:none;") Mid
+          .role-box(role="bot")
+            img(src="/img/icons/roles/bottom.png")
+            span(style="pointer-events:none;") Bottom
+          .role-box(role="support")
+            img(src="/img/icons/roles/support.png")
+            span(style="pointer-events:none;") Support
+          div
+            a(href="javascript:void(0)")#roles-reset.small Reset roles
+
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal')#roles-cancel Reset
+          |  
+          button.btn.btn-primary(type='button')#roles-save Save
+
+  //- Champions modal
+  #champions-picker-modal.modal.fade(data-backdrop="static" data-keyboard="false" role='dialog' style="color: #333")
+    .modal-dialog(style="min-width:90vw;")
+      .modal-content(style="background-color: #ffffff; margin: 7vh auto; border: 1px solid #000; width: 100%; max-width: 1420px; color: #333;")
+        .modal-body
+          .row
+            .col-md-6
+              h2(style="margin-top:0;") Champions
+              p Specify 3+ champions for each role. 5% extra. 
+                a(href="javascript:void(0)")#champions-reset.small Reset champions
+              //-
+                label Filter champions
+                input#myInput(type='text', onkeyup='myFunction()', placeholder='Search for names..').form-control
+            .col-md-6.text-right
+              button.btn.btn-default(type='button', data-dismiss='modal').champions-cancel Reset
+              |  
+              button.btn.btn-primary(type='button').champions-save Save
+          hr
+          #champions-lists.row
+            .col-sm-6.champions-list.champions-list--top(style="display:none;")
+              +championList("top")
+            .col-sm-6.champions-list.champions-list--jungle(style="display:none;")
+              +championList("jungle")
+            .col-sm-6.champions-list.champions-list--mid(style="display:none;")
+              +championList("mid")
+            .col-sm-6.champions-list.champions-list--bot(style="display:none;")
+              +championList("bot")
+            .col-sm-6.champions-list.champions-list--support(style="display:none;")
+              +championList("support")
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal').champions-cancel Reset
+          |  
+          button.btn.btn-primary(type='button').champions-save Save
+
+  //- Checkout modal
+  #payment-modal.modal.fade(role='dialog' style="color: #333")
+    .modal-dialog
+      .modal-content(style="max-width:500px;")
+        .modal-body
+          div
+            if ordersStatus.isDisabled
+              | Orders are currently disabled. Come back on #{ordersStatus.newSeasonStart}!
+            else
+              if user
+                h2(style="margin:0") Order checkout
+                hr
+                h3 1. Game details
+                p.small(style="margin-bottom:1em")
+                  | Select your desired queue and game server.
+                .row
+                  .col-md-6
+                    div
+                      div Queue
+                          span.text-danger *
+                      select(style="width:100%;")#queue-select.wide
+                        for name, key in queues
+                          option(value=key)= name
+                  .col-md-6
+                    div
+                      div Server
+                          span.text-danger *
+                      select(style="width:100%;")#server-select.wide
+                        for name, key in servers
+                          option(value=key)= name
+
+                hr
+                h3 2. Player information
+                p.small(style="margin-bottom:1em")
+                  | Your player account information is encrypted at rest using AES-256 encryption. Upon boost completion, it is completely deleted.
+                if boostCategory == "solo"
+                  .form-group
+                    label LoL Username
+                      span.text-danger *
+                    input(id="lolUsername" name="lolUsername" placeholder="Your LoL username" type="text" required="required").form-control
+                  .form-group
+                    label LoL Password
+                      span.text-danger *
+                    input(id="lolPassword" name="lolPassword" placeholder="Your LoL password" type="password" required="required").form-control
+                div
+                  .form-group
+                    label LoL In-Game Name (IGN)
+                      span.text-danger *
+                    input(id="lolIgn" name="lolIgn" placeholder="Your LoL IGN" type="text" required="required").form-control
+                if boostCategory == "duo"
+                  .form-group
+                    label Special requests/requirements
+                    textarea(id="specialRequirements" rows="2" name="specialRequirements" placeholder="Special requirements...").form-control
+                    div.small.faded If you have any special request, please let us know.
+                hr
+
+              if user
+                h3 3. Payment information
+                p.small(style="margin-bottom:1em")
+                  | You will be redirected to PayPal to process the order payment.
+
+              div(style="margin: 1em 0;border-left: 6px solid #5cb85c;padding-left: 10px;")
+                strong Order total
+                h2(style="margin-top:0")
+                  span.order-price-tag 0$
+              
+              if user
+                a(href="javascript:void(0)" style="display:block; margin-bottom:10px; color: #888;").small#i-have-a-promo-code-btn I have a promotional code
+                div#i-have-a-promo-code(style="display:none;")
+                  #applied-promocode
+                  #promocode-wrapper.form-group
+                    label Promotional code
+                    .input-group
+                      input(id="promocode" style="height:initial" placeholder="Type in your code..." type="text").form-control
+                      span.input-group-btn
+                        button#apply-promo.btn.btn-default Apply
+                    .small#promocode-message
+                  
+                #paypal-button(style="display:none;")
+                #empty-order-warning
+                  | The payment button will appear here once you complete the order form.
+                  div
+                    img(style="filter:grayscale(1); margin-top:5px; max-width:250px;" src="/img/accepted-payment-methods.png")
+
+              else
+                div(style="color: #333; background-color: #FFE100; border: 1px solid hsla(53, 100%, 46%, 1); padding:10px 20px 8px 20px; display: inline-block; padding: 0.5em 1em;").glow-primary
+                  a(href="/login") Login
+                  |  or 
+                  a(href="/signup") signup
+                  |  to purchase your boost.
+                div
+                  a(href="faq" style="font-size:0.8em") Why do I need to create an account?
+                div
+                  img(style="margin-top:5px; max-width:250px;" src="/img/accepted-payment-methods.png")
+
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Cancel

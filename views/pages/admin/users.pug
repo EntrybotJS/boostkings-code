@@ -1,0 +1,27 @@
+extends admin-template
+
+block admin-content
+  div
+    h1 Clients
+    br
+    if users
+      table.table
+        tr
+          th Email
+          th Member since
+          th Orders in progress
+          th Completed orders
+          th Total orders ($)
+        for u in users
+          tr
+            td= u.email
+            td(title= moment(u.created_on).tz(moment.tz.guess()).format('LLLL'))
+              = moment(u.created_on).tz(moment.tz.guess()).fromNow()
+            td
+              =u.orders.inProgress
+            td
+              =u.orders.done
+            td
+              | $
+              =u.orders.totalSpent.toFixed(2)
+              |  USD
