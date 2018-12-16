@@ -56,19 +56,19 @@ PriceSchema.statics.getPrices = function(callback) {
 				prices.duoDivBoost = [
 					{
 						name: 'Iron IV',
-						regularPrice: 0.0
+						regularPrice: 10.0
 					},
 					{
 						name: 'Iron III',
-						regularPrice: 0.0
+						regularPrice: 10.0
 					},
 					{
 						name: 'Iron II',
-						regularPrice: 0.0
+						regularPrice: 10.0
 					},
 					{
 						name: 'Iron I',
-						regularPrice: 0.0
+						regularPrice: 10.0
 					},
 					{
 						name: 'Bronze IV',
@@ -169,6 +169,10 @@ PriceSchema.statics.getPrices = function(callback) {
 					{
 						name: 'Master',
 						regularPrice: 538.0
+					},
+					{
+						name: 'Grandmaster',
+						regularPrice: 538.0
 					}
 				]
 
@@ -202,8 +206,8 @@ PriceSchema.statics.getPrices = function(callback) {
 						regularPrice: 50.0
 					},
 					{
-						name: 'Grand Master',
-						regularPrice: 50
+						name: 'Grandmaster',
+						regularPrice: 50.0
 					}
 				]
 
@@ -237,8 +241,8 @@ PriceSchema.statics.getPrices = function(callback) {
 						regularPrice: 20.0
 					},
 					{
-						name: 'Grand Master',
-						regularPrice: 20
+						name: 'Grandmaster',
+						regularPrice: 20.0
 					}
 				]
 
@@ -276,7 +280,7 @@ PriceSchema.statics.getPrices = function(callback) {
 						regularPrice: 12.5
 					},
 					{
-						name: 'Grand Master',
+						name: 'Grandmaster',
 						regularPrice: 12.5
 					}
 				]
@@ -284,19 +288,19 @@ PriceSchema.statics.getPrices = function(callback) {
 				prices.soloDivBoost = [
 					{
 						name: 'Iron IV',
-						regularPrice: 0.0
+						regularPrice: 10.0
 					},
 					{
 						name: 'Iron III',
-						regularPrice: 0.0
+						regularPrice: 10.0
 					},
 					{
 						name: 'Iron II',
-						regularPrice: 0.0
+						regularPrice: 10.0
 					},
 					{
 						name: 'Iron I',
-						regularPrice: 0.0
+						regularPrice: 10.0
 					},
 					{
 						name: 'Bronze IV',
@@ -399,7 +403,7 @@ PriceSchema.statics.getPrices = function(callback) {
 						regularPrice: 309.0
 					},
 					{
-						name: 'Grand Master',
+						name: 'Grandmaster',
 						regularPrice: 309.0
 					}
 				]
@@ -407,10 +411,6 @@ PriceSchema.statics.getPrices = function(callback) {
 				prices.soloNetWins = [
 					{
 						name: 'Iron',
-						regularPrice: 3.0
-					},
-					{
-						name: 'Bronze',
 						regularPrice: 3.0
 					},
 					{
@@ -438,7 +438,7 @@ PriceSchema.statics.getPrices = function(callback) {
 						regularPrice: 25.0
 					},
 					{
-						name: 'Grand Master',
+						name: 'Grandmaster',
 						regularPrice: 25.0
 					}
 				]
@@ -477,7 +477,7 @@ PriceSchema.statics.getPrices = function(callback) {
 						regularPrice: 10.0
 					},
 					{
-						name: 'Grand Master',
+						name: 'Grandmaster',
 						regularPrice: 10.0
 					}
 				]

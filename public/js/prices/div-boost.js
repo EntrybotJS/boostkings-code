@@ -44,7 +44,7 @@
 			divisionBoost.updateImage(divisionBoost._currentTier)
 
 			$(divisionBoost._currentTier)
-				.find('option:contains("Master")')
+				.find('option:contains("Grandmaster")')
 				.remove()
 			var val = $(divisionBoost._currentTier).val()
 			$(divisionBoost._currentDivisions).html(
@@ -232,9 +232,9 @@
 			img.src = '/img/tiers/platinum.png'
 		} else if (selectedOptionText.includes('Diamond')) {
 			img.src = '/img/tiers/diamond.png'
-		} else if (selectedOptionText == 'Master') {
+		} else if (selectedOptionText.includes('Master')) {
 			img.src = '/img/tiers/master.png'
-		} else if (selectedOptionText.includes('Grand Master')) {
+		} else if (selectedOptionText.includes('Grandmaster')) {
 			img.src = '/img/tiers/grandmaster.png'
 		}
 	}

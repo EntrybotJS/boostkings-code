@@ -22,7 +22,7 @@ function getPrices(callback) {
 			'Platinum',
 			'Diamond',
 			'Master',
-			'Grand Master'
+			'Grandmaster'
 		]
 
 		// factor in rebate percentage
@@ -65,7 +65,7 @@ function getPrices(callback) {
 			'Platinum',
 			'Diamond',
 			'Master',
-			'Grand Master'
+			'Grandmaster'
 		]
 
 		// factor in rebate percentage
