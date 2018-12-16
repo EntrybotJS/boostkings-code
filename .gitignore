@@ -19,3 +19,5 @@ coverage
 
 # The nodejs module folder
 node_modules/
+
+.env
