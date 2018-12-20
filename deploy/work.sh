@@ -3,7 +3,7 @@ set -e
 
 ### Configuration ###
 APP_DIR=boostkings-code
-GIT_URL=git://github.com/Ezic28/boostkings.lol
+GIT_URL=git://github.com/Boost-Kings/boostkings-code
 
 ### Automation steps ###
 set -x
