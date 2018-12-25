@@ -60,15 +60,15 @@ PriceSchema.statics.getPrices = function(callback) {
 					},
 					{
 						name: 'Iron III',
-						regularPrice: 10.0
+						regularPrice: 11.0
 					},
 					{
 						name: 'Iron II',
-						regularPrice: 10.0
+						regularPrice: 12.0
 					},
 					{
 						name: 'Iron I',
-						regularPrice: 10.0
+						regularPrice: 13.0
 					},
 					{
 						name: 'Bronze IV',
@@ -183,11 +183,11 @@ PriceSchema.statics.getPrices = function(callback) {
 					},
 					{
 						name: 'Bronze',
-						regularPrice: 4.0
+						regularPrice: 5.0
 					},
 					{
 						name: 'Silver',
-						regularPrice: 5.0
+						regularPrice: 6.0
 					},
 					{
 						name: 'Gold',
@@ -214,7 +214,7 @@ PriceSchema.statics.getPrices = function(callback) {
 				prices.duoGames = [
 					{
 						name: 'Iron',
-						regularPrice: 3.0
+						regularPrice: 2.0
 					},
 					{
 						name: 'Bronze',
@@ -288,19 +288,19 @@ PriceSchema.statics.getPrices = function(callback) {
 				prices.soloDivBoost = [
 					{
 						name: 'Iron IV',
-						regularPrice: 10.0
+						regularPrice: 6.0
 					},
 					{
 						name: 'Iron III',
-						regularPrice: 10.0
+						regularPrice: 7.0
 					},
 					{
 						name: 'Iron II',
-						regularPrice: 10.0
+						regularPrice: 8.0
 					},
 					{
 						name: 'Iron I',
-						regularPrice: 10.0
+						regularPrice: 9.0
 					},
 					{
 						name: 'Bronze IV',
@@ -411,7 +411,7 @@ PriceSchema.statics.getPrices = function(callback) {
 				prices.soloNetWins = [
 					{
 						name: 'Iron',
-						regularPrice: 3.0
+						regularPrice: 2.0
 					},
 					{
 						name: 'Bronze',
