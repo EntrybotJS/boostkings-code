@@ -45,10 +45,12 @@ $(document).ready(function() {
 			select.options[select.selectedIndex].text.includes('Diamond')
 		) {
 			img.src = '/img/tiers/diamond.png'
-		} else if (select.options[select.selectedIndex].includes('Master')) {
+		} else if (
+			select.options[select.selectedIndex].text.includes('Master')
+		) {
 			img.src = '/img/tiers/master.png'
 		} else if (
-			select.options[select.selectedIndex].includes('Grandmaster')
+			select.options[select.selectedIndex].text.includes('Grandmaster')
 		) {
 			img.src = '/img/tiers/grandmaster.png'
 		}
