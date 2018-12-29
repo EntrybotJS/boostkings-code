@@ -64,9 +64,7 @@ passport.deserializeUser(function(id, done) {
 
 var app = express()
 var server = require('http').Server(app)
-var io = require('socket.io')(server, {
-	allowUpgrades: false
-})
+var io = require('socket.io')(server)
 
 // order live chat
 io.sockets.on('connection', function(socket) {
