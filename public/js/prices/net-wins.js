@@ -1,14 +1,23 @@
 $(document).ready(function() {
 	var currentTier = document.getElementById('net-wins-current-tier')
+	var currentLP = document.getElementById('net-wins-current-lp')
 	var range = document.getElementById('net-wins-range')
 	var numberLabel = $('#net-wins-number-label')
 
 	var updateLabels = function() {
-		var tierUnitPrice = $(currentTier).val()
+		var tierUnitPrice =
+			$(currentTier).val() -
+			$(currentTier).val() * parseFloat($('#net-wins-current-lp').val())
 		var rangeNumber = $(range).val()
 		var finalPrice = tierUnitPrice * rangeNumber
 		finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2)
 		$(numberLabel).text(rangeNumber + ' wins')
+
+		/*if ($('#games-current-lp').length) {
+			finalPrice -=
+				tierUnitPrice * parseFloat($('#net-wins-current-lp').val())
+			finalPrice = finalPrice <= 0 ? 0 : finalPrice
+		}*/
 
 		updateOrderPrice(finalPrice)
 
@@ -65,6 +74,11 @@ $(document).ready(function() {
 	})
 
 	$(range).on('input change', function() {
+		updateLabels()
+	})
+
+	$(currentLP).on('change', function() {
+		updateImage(currentTier)
 		updateLabels()
 	})
 

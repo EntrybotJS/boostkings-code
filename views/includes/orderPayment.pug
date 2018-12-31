@@ -8,6 +8,26 @@ mixin championList(roleKey)
             img(style="pointer-events:none; border-radius:2px; margin-right:7px; width:30px;" src="/img/champions/" + key + ".png")
             a(style="pointer-events:none; display:inline-block;")= value
 
+if user
+  div(style="background: #23283c; padding:1em; border-radius:2px; margin-bottom:1em")
+    p
+      strong Game details
+    .row
+      .col-md-12
+        div
+          div Queue
+              span.text-danger *
+          select(style="width:100%; color:black;")#queue-select.wide
+            for name, key in queues
+              option(value=key)= name
+      .col-md-12
+        div
+          div Server
+              span.text-danger *
+          select(style="width:100%; color:black;")#server-select.wide
+            for name, key in servers
+              option(value=key)= name
+
 if user && boostCategory == "solo"
   div(style="background: #23283c; padding:1em; border-radius:2px; margin-bottom:1em")
     p
@@ -109,27 +129,7 @@ if user
               if user
                 h2(style="margin:0") Order checkout
                 hr
-                h3 1. Game details
-                p.small(style="margin-bottom:1em")
-                  | Select your desired queue and game server.
-                .row
-                  .col-md-6
-                    div
-                      div Queue
-                          span.text-danger *
-                      select(style="width:100%;")#queue-select.wide
-                        for name, key in queues
-                          option(value=key)= name
-                  .col-md-6
-                    div
-                      div Server
-                          span.text-danger *
-                      select(style="width:100%;")#server-select.wide
-                        for name, key in servers
-                          option(value=key)= name
-
-                hr
-                h3 2. Player information
+                h3 1. Player information
                 p.small(style="margin-bottom:1em")
                   | Your player account information is encrypted at rest using AES-256 encryption. Upon boost completion, it is completely deleted.
                 if boostCategory == "solo"
@@ -154,7 +154,7 @@ if user
                 hr
 
               if user
-                h3 3. Payment information
+                h3 2. Payment information
                 p.small(style="margin-bottom:1em")
                   | You will be redirected to PayPal to process the order payment.
 

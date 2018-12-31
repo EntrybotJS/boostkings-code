@@ -18,6 +18,9 @@ block prices-content
         select#net-wins-current-tier.wide
           for tier in duoNetWinsTiers
             option(value=tier.regularPrice)= tier.name
+        select#net-wins-current-lp.wide
+          for value, key in lpRanges
+            option(value=value)= key
       .col-sm-6.text-center
         h3(style="font-weight:400") Number of Net Wins
         div#net-wins-number-label.number-label 0

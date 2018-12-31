@@ -1,13 +1,22 @@
 $(document).ready(function() {
 	var currentTier = document.getElementById('games-current-tier')
+	var currentLP = document.getElementById('games-current-lp')
 	var range = document.getElementById('games-range')
 	var numberLabel = $('#games-number-label')
 
 	var updateLabels = function() {
-		var tierUnitPrice = $(currentTier).val()
+		var tierUnitPrice =
+			$(currentTier).val() -
+			$(currentTier).val() * parseFloat($('#games-current-lp').val())
 		var rangeNumber = $(range).val()
+		$(numberLabel).text(rangeNumber + ' wins')
 		var finalPrice = tierUnitPrice * rangeNumber
-		$(numberLabel).text(rangeNumber)
+
+		/*if ($('#games-current-lp').length) {
+			finalPrice -=
+				tierUnitPrice * parseFloat($('#games-current-lp').val())
+			finalPrice = finalPrice <= 0 ? 0 : finalPrice
+		}*/
 
 		updateOrderPrice(finalPrice)
 
@@ -57,6 +66,11 @@ $(document).ready(function() {
 	}
 
 	$(currentTier).on('change', function() {
+		updateImage(currentTier)
+		updateLabels()
+	})
+
+	$(currentLP).on('change', function() {
 		updateImage(currentTier)
 		updateLabels()
 	})
