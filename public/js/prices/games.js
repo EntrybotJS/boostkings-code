@@ -1,32 +1,55 @@
 $(document).ready(function() {
 	var currentTier = document.getElementById('games-current-tier')
-	var currentLP = document.getElementById('games-current-lp')
+	var currentDiv = document.getElementById('games-current-division')
 	var range = document.getElementById('games-range')
 	var numberLabel = $('#games-number-label')
 
 	var updateLabels = function() {
-		var tierUnitPrice =
-			$(currentTier).val() -
-			$(currentTier).val() * parseFloat($('#games-current-lp').val())
+		var tierUnitPrice = $('option:selected', $(currentDiv)).attr(
+			'regularPrice'
+		)
 		var rangeNumber = $(range).val()
-		$(numberLabel).text(rangeNumber + ' wins')
+		$(numberLabel).text(rangeNumber + ' games')
 		var finalPrice = tierUnitPrice * rangeNumber
-
-		/*if ($('#games-current-lp').length) {
-			finalPrice -=
-				tierUnitPrice * parseFloat($('#games-current-lp').val())
-			finalPrice = finalPrice <= 0 ? 0 : finalPrice
-		}*/
-
-		updateOrderPrice(finalPrice)
 
 		boostOrder.name =
 			$(currentTier)
 				.find('option:selected')
 				.text() +
+			' ' +
+			$(currentDiv)
+				.find('option:selected')
+				.text() +
 			' - ' +
 			rangeNumber +
 			' games'
+
+		updateOrderPrice(finalPrice)
+	}
+
+	var currentDivClone = $('#games-current-division').clone()
+
+	let replaceOptions = () => {
+		var val = $(currentTier).val()
+
+		$(currentDiv).html(currentDivClone.html())
+
+		$(currentDiv)
+			.find('option:not(:contains(' + val + '))')
+			.remove()
+
+		$(currentDiv)
+			.children('option')
+			.text(function(idx, text) {
+				return text.replace(val, 'Division')
+			})
+
+		if (val === 'Grandmaster' || val === 'Master') {
+			document.getElementById('games-current-division').className =
+				'hidden'
+		} else {
+			document.getElementById('games-current-division').className = 'wide'
+		}
 	}
 
 	var updateImage = function(select) {
@@ -67,11 +90,11 @@ $(document).ready(function() {
 
 	$(currentTier).on('change', function() {
 		updateImage(currentTier)
+		replaceOptions()
 		updateLabels()
 	})
 
-	$(currentLP).on('change', function() {
-		updateImage(currentTier)
+	$(currentDiv).on('change', function() {
 		updateLabels()
 	})
 

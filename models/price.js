@@ -178,28 +178,116 @@ PriceSchema.statics.getPrices = function(callback) {
 
 				prices.duoNetWins = [
 					{
-						name: 'Iron',
+						name: 'Iron IV',
 						regularPrice: 4.0
 					},
 					{
-						name: 'Bronze',
+						name: 'Iron III',
+						regularPrice: 4.1
+					},
+					{
+						name: 'Iron II',
+						regularPrice: 4.2
+					},
+					{
+						name: 'Iron I',
+						regularPrice: 4.3
+					},
+					{
+						name: 'Bronze IV',
 						regularPrice: 5.0
 					},
 					{
-						name: 'Silver',
+						name: 'Bronze III',
+						regularPrice: 5.1
+					},
+					{
+						name: 'Bronze II',
+						regularPrice: 5.2
+					},
+					{
+						name: 'Bronze I',
+						regularPrice: 5.3
+					},
+					/*{
+						name: 'Silver V',
+						regularPrice: 24.0
+					},*/
+					{
+						name: 'Silver IV',
 						regularPrice: 6.0
 					},
 					{
-						name: 'Gold',
+						name: 'Silver III',
+						regularPrice: 6.1
+					},
+					{
+						name: 'Silver II',
+						regularPrice: 6.2
+					},
+					{
+						name: 'Silver I',
+						regularPrice: 6.3
+					},
+					/*{
+						name: 'Gold V',
+						regularPrice: 34.0
+					},*/
+					{
+						name: 'Gold IV',
 						regularPrice: 7.0
 					},
 					{
-						name: 'Platinum',
+						name: 'Gold III',
+						regularPrice: 7.1
+					},
+					{
+						name: 'Gold II',
+						regularPrice: 7.2
+					},
+					{
+						name: 'Gold I',
+						regularPrice: 7.3
+					},
+					/*{
+						name: 'Platinum V',
+						regularPrice: 53.0
+					},*/
+					{
+						name: 'Platinum IV',
 						regularPrice: 13.0
 					},
 					{
-						name: 'Diamond',
-						regularPrice: 25.0
+						name: 'Platinum III',
+						regularPrice: 13.2
+					},
+					{
+						name: 'Platinum II',
+						regularPrice: 13.4
+					},
+					{
+						name: 'Platinum I',
+						regularPrice: 13.6
+					},
+					/*{
+						name: 'Diamond V',
+						regularPrice: 93.0
+					},*/
+					{
+						name: 'Diamond IV',
+						regularPrice: 25.3
+					},
+					{
+						name: 'Diamond III',
+						regularPrice: 25.6
+					},
+					{
+						name: 'Diamond II',
+						regularPrice: 25.9
+					},
+					{
+						name: 'Diamond I',
+						regularPrice: 26.2
 					},
 					{
 						name: 'Master',
@@ -207,34 +295,122 @@ PriceSchema.statics.getPrices = function(callback) {
 					},
 					{
 						name: 'Grandmaster',
-						regularPrice: 50.0
+						regularPrice: 100.0
 					}
 				]
 
 				prices.duoGames = [
 					{
-						name: 'Iron',
+						name: 'Iron IV',
 						regularPrice: 2.0
 					},
 					{
-						name: 'Bronze',
+						name: 'Iron III',
+						regularPrice: 2.1
+					},
+					{
+						name: 'Iron II',
+						regularPrice: 2.2
+					},
+					{
+						name: 'Iron I',
+						regularPrice: 2.3
+					},
+					{
+						name: 'Bronze IV',
+						regularPrice: 2.5
+					},
+					{
+						name: 'Bronze III',
+						regularPrice: 2.6
+					},
+					{
+						name: 'Bronze II',
+						regularPrice: 2.7
+					},
+					{
+						name: 'Bronze I',
+						regularPrice: 2.8
+					},
+					/*{
+						name: 'Silver V',
+						regularPrice: 24.0
+					},*/
+					{
+						name: 'Silver IV',
 						regularPrice: 3.0
 					},
 					{
-						name: 'Silver',
-						regularPrice: 3.0
+						name: 'Silver III',
+						regularPrice: 3.1
 					},
 					{
-						name: 'Gold',
-						regularPrice: 4.0
+						name: 'Silver II',
+						regularPrice: 3.2
 					},
 					{
-						name: 'Platinum',
-						regularPrice: 7.0
+						name: 'Silver I',
+						regularPrice: 3.3
+					},
+					/*{
+						name: 'Gold V',
+						regularPrice: 34.0
+					},*/
+					{
+						name: 'Gold IV',
+						regularPrice: 3.5
 					},
 					{
-						name: 'Diamond',
-						regularPrice: 13.0
+						name: 'Gold III',
+						regularPrice: 3.6
+					},
+					{
+						name: 'Gold II',
+						regularPrice: 3.7
+					},
+					{
+						name: 'Gold I',
+						regularPrice: 3.8
+					},
+					/*{
+						name: 'Platinum V',
+						regularPrice: 53.0
+					},*/
+					{
+						name: 'Platinum IV',
+						regularPrice: 6.5
+					},
+					{
+						name: 'Platinum III',
+						regularPrice: 6.6
+					},
+					{
+						name: 'Platinum II',
+						regularPrice: 6.7
+					},
+					{
+						name: 'Platinum I',
+						regularPrice: 6.8
+					},
+					/*{
+						name: 'Diamond V',
+						regularPrice: 93.0
+					},*/
+					{
+						name: 'Diamond IV',
+						regularPrice: 11.8
+					},
+					{
+						name: 'Diamond III',
+						regularPrice: 12.2
+					},
+					{
+						name: 'Diamond II',
+						regularPrice: 12.8
+					},
+					{
+						name: 'Diamond I',
+						regularPrice: 13.2
 					},
 					{
 						name: 'Master',
@@ -410,28 +586,116 @@ PriceSchema.statics.getPrices = function(callback) {
 
 				prices.soloNetWins = [
 					{
-						name: 'Iron',
+						name: 'Iron IV',
 						regularPrice: 2.0
 					},
 					{
-						name: 'Bronze',
+						name: 'Iron III',
+						regularPrice: 2.1
+					},
+					{
+						name: 'Iron II',
+						regularPrice: 2.2
+					},
+					{
+						name: 'Iron I',
+						regularPrice: 2.3
+					},
+					{
+						name: 'Bronze IV',
+						regularPrice: 2.5
+					},
+					{
+						name: 'Bronze III',
+						regularPrice: 2.6
+					},
+					{
+						name: 'Bronze II',
+						regularPrice: 2.7
+					},
+					{
+						name: 'Bronze I',
+						regularPrice: 2.8
+					},
+					/*{
+						name: 'Silver V',
+						regularPrice: 24.0
+					},*/
+					{
+						name: 'Silver IV',
 						regularPrice: 3.0
 					},
 					{
-						name: 'Silver',
-						regularPrice: 4.0
+						name: 'Silver III',
+						regularPrice: 3.1
 					},
 					{
-						name: 'Gold',
-						regularPrice: 6.0
+						name: 'Silver II',
+						regularPrice: 3.2
 					},
 					{
-						name: 'Platinum',
-						regularPrice: 9.0
+						name: 'Silver I',
+						regularPrice: 3.3
+					},
+					/*{
+						name: 'Gold V',
+						regularPrice: 34.0
+					},*/
+					{
+						name: 'Gold IV',
+						regularPrice: 3.5
 					},
 					{
-						name: 'Diamond',
-						regularPrice: 15.0
+						name: 'Gold III',
+						regularPrice: 3.6
+					},
+					{
+						name: 'Gold II',
+						regularPrice: 3.7
+					},
+					{
+						name: 'Gold I',
+						regularPrice: 3.8
+					},
+					/*{
+						name: 'Platinum V',
+						regularPrice: 53.0
+					},*/
+					{
+						name: 'Platinum IV',
+						regularPrice: 6.5
+					},
+					{
+						name: 'Platinum III',
+						regularPrice: 6.6
+					},
+					{
+						name: 'Platinum II',
+						regularPrice: 6.7
+					},
+					{
+						name: 'Platinum I',
+						regularPrice: 6.8
+					},
+					/*{
+						name: 'Diamond V',
+						regularPrice: 93.0
+					},*/
+					{
+						name: 'Diamond IV',
+						regularPrice: 11.8
+					},
+					{
+						name: 'Diamond III',
+						regularPrice: 12.2
+					},
+					{
+						name: 'Diamond II',
+						regularPrice: 12.8
+					},
+					{
+						name: 'Diamond I',
+						regularPrice: 13.2
 					},
 					{
 						name: 'Master',

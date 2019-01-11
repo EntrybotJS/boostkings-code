@@ -17,10 +17,10 @@ block prices-content
         br
         select#net-wins-current-tier.wide
           for tier in duoNetWinsTiers
-            option(value=tier.regularPrice)= tier.name
-        select#net-wins-current-lp.wide
-          for value, key in lpRanges
-            option(value=value)= key
+            option= tier
+        select#net-wins-current-division.wide
+          for division in duoNetWinsDivs
+            option(value=division.discountedPrice, atomicPrice=division.atomicPrice, regularPrice=division.regularPrice) #{division.name}
       .col-sm-6.text-center
         h3(style="font-weight:400") Number of Net Wins
         div#net-wins-number-label.number-label 0

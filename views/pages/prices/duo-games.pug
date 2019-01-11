@@ -17,10 +17,11 @@ block prices-content
         br
         select#games-current-tier.wide
           for tier in duoGamesTiers
-            option(value=tier.regularPrice)= tier.name
-        select#games-current-lp.wide
-          for value, key in lpRanges
-            option(value=value)= key
+            option= tier
+        br
+        select#games-current-division.wide
+          for division in duoGamesDivs
+            option(value=division.discountedPrice, atomicPrice=division.atomicPrice, regularPrice=division.regularPrice) #{division.name}
       .col-sm-6.text-center
         h3 Number of Games
         div#games-number-label.number-label 0

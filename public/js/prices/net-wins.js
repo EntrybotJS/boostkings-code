@@ -1,35 +1,56 @@
 $(document).ready(function() {
 	var currentTier = document.getElementById('net-wins-current-tier')
-	var currentLP = document.getElementById('net-wins-current-lp')
+	var currentDiv = document.getElementById('net-wins-current-division')
 	var range = document.getElementById('net-wins-range')
 	var numberLabel = $('#net-wins-number-label')
 
 	var updateLabels = function() {
-		var tierUnitPrice =
-			$(currentTier).val() -
-			$(currentTier).val() * parseFloat($('#net-wins-current-lp').val())
+		var tierUnitPrice = $('option:selected', $(currentDiv)).attr(
+			'regularPrice'
+		)
 		var rangeNumber = $(range).val()
-		var finalPrice = tierUnitPrice * rangeNumber
-		finalPrice = parseFloat(Math.round(finalPrice * 100) / 100).toFixed(2)
 		$(numberLabel).text(rangeNumber + ' wins')
-
-		/*if ($('#games-current-lp').length) {
-			finalPrice -=
-				tierUnitPrice * parseFloat($('#net-wins-current-lp').val())
-			finalPrice = finalPrice <= 0 ? 0 : finalPrice
-		}*/
-
-		updateOrderPrice(finalPrice)
+		var finalPrice = tierUnitPrice * rangeNumber
 
 		boostOrder.name =
 			$(currentTier)
+				.find('option:selected')
+				.text() +
+			' ' +
+			$(currentDiv)
 				.find('option:selected')
 				.text() +
 			' - ' +
 			rangeNumber +
 			' net wins'
 
-		showHidePayPal()
+		updateOrderPrice(finalPrice)
+	}
+
+	var currentDivClone = $('#net-wins-current-division').clone()
+
+	let replaceOptions = () => {
+		var val = $(currentTier).val()
+
+		$(currentDiv).html(currentDivClone.html())
+
+		$(currentDiv)
+			.find('option:not(:contains(' + val + '))')
+			.remove()
+
+		$(currentDiv)
+			.children('option')
+			.text(function(idx, text) {
+				return text.replace(val, 'Division')
+			})
+
+		if (val === 'Grandmaster' || val === 'Master') {
+			document.getElementById('net-wins-current-division').className =
+				'hidden'
+		} else {
+			document.getElementById('net-wins-current-division').className =
+				'wide'
+		}
 	}
 
 	var updateImage = function(select) {
@@ -70,15 +91,15 @@ $(document).ready(function() {
 
 	$(currentTier).on('change', function() {
 		updateImage(currentTier)
+		replaceOptions()
+		updateLabels()
+	})
+
+	$(currentDiv).on('change', function() {
 		updateLabels()
 	})
 
 	$(range).on('input change', function() {
-		updateLabels()
-	})
-
-	$(currentLP).on('change', function() {
-		updateImage(currentTier)
 		updateLabels()
 	})
 
