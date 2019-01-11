@@ -17,14 +17,14 @@ if user
         div
           div Queue
               span.text-danger *
-          select(style="width:100%; color:black;")#queue-select.wide
+          select(style="width:100%; color:white; background-color: #3e476a; border: none; border-radius: 2px; text-align: center; font-size: 14px; transform: uppercase; padding: 6px 12px; font-weight: 500;")#queue-select.wide
             for name, key in queues
               option(value=key)= name
       .col-md-12
         div
           div Server
               span.text-danger *
-          select(style="width:100%; color:black;")#server-select.wide
+        select(style="width:100%; color:white; background-color: #3e476a; border: none; border-radius: 2px; text-align: center; font-size: 14px; transform: uppercase; padding: 6px 12px; font-weight: 500;")#server-select.wide
             for name, key in servers
               option(value=key)= name
 
