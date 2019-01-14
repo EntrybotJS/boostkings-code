@@ -96,6 +96,17 @@ function getPrices(callback) {
 				duoDivisionBoostDivs[i].regularPrice *
 				(1 - divisionBoostRebatePercentage)
 		}
+
+		// loop over every duo division to calculate the price
+		// to reach that division
+		for (i = 1; i < duoDivisionBoostDivs.length; i++) {
+			duoDivisionBoostDivs[i].atomicPrice =
+				duoDivisionBoostDivs[i].regularPrice
+			duoDivisionBoostDivs[i].regularPrice +=
+				duoDivisionBoostDivs[i - 1].regularPrice
+			duoDivisionBoostDivs[i].discountedPrice +=
+				duoDivisionBoostDivs[i - 1].discountedPrice
+		}
 		pricesData.duoDivisionBoostDivs = duoDivisionBoostDivs
 
 		/*********************************************
