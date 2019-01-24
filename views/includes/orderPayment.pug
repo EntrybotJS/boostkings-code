@@ -27,17 +27,15 @@ if user
         select(style="width:100%; color:white; background-color: #3e476a; border: none; border-radius: 2px; text-align: center; font-size: 14px; transform: uppercase; padding: 6px 12px; font-weight: 500;")#server-select.wide
             for name, key in servers
               option(value=key)= name
-
-if user && boostCategory == "solo"
-  div(style="background: #23283c; padding:1em; border-radius:2px; margin-bottom:1em")
-    p
-      strong Additional options
-    button#btn-choose-roles(type='button', data-toggle='modal', style="border:none;" data-target='#roles-picker-modal').btn.btn-block.btn-dark
-      | Choose roles 
-      span#roles-btn-checkmark(style="display:none;")  ✓
-    button#btn-choose-champions(type='button', data-toggle='modal', disabled="disabled" style="border:none;" data-target='#champions-picker-modal').btn.btn-block.btn-dark
-      | Choose champions 
-      span#champions-btn-checkmark(style="display:none;")  ✓
+    if boostCategory == "solo"
+      <br>
+      span.text-danger You must choose a role
+      button#btn-choose-roles(type='button', data-toggle='modal', style="border:none;" data-target='#roles-picker-modal').btn.btn-block.btn-dark
+        | Choose roles 
+        span#roles-btn-checkmark(style="display:none;")  ✓
+      button#btn-choose-champions(type='button', data-toggle='modal', disabled="disabled" style="border:none;" data-target='#champions-picker-modal').btn.btn-block.btn-dark
+        | Choose champions 
+        span#champions-btn-checkmark(style="display:none;")  ✓
 
 div(style="background: #23283c; padding:1em; border-top: 5px solid #464d6b; border-radius:2px;")
   | Order total
@@ -59,7 +57,7 @@ if user
       .modal-content(style="max-width:500px;")
         .modal-body
           h2(style="margin-top:0;") Roles
-          p Specify primary and secondary roles. 5% extra.
+          p Specify primary and secondary roles.
           .role-box(role="top")
             img(style="pointer-events:none;" src="/img/icons/roles/top.png")
             span(style="pointer-events:none;") Top
@@ -91,7 +89,7 @@ if user
           .row
             .col-md-6
               h2(style="margin-top:0;") Champions
-              p Specify 3+ champions for each role. 5% extra. 
+              p Specify 3+ champions for each role. 10% extra. 
                 a(href="javascript:void(0)")#champions-reset.small Reset champions
               //-
                 label Filter champions
