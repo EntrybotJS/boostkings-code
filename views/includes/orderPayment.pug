@@ -29,7 +29,7 @@ if user
               option(value=key)= name
     if boostCategory == "solo"
       <br>
-      span.text-danger You must choose a role
+      span#roles-notice.text-danger You must choose a role
       button#btn-choose-roles(type='button', data-toggle='modal', style="border:none;" data-target='#roles-picker-modal').btn.btn-block.btn-dark
         | Choose roles 
         span#roles-btn-checkmark(style="display:none;")  ✓

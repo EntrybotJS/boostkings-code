@@ -31,6 +31,7 @@ $(document).ready(function() {
 		roleModalDirty = true
 		$('#btn-choose-champions').attr('disabled', 'disabled')
 		$('#roles-btn-checkmark').hide()
+		$('#roles-notice').show()
 
 		resetChampionModal()
 		$('#champions-btn-checkmark').hide()
@@ -42,6 +43,8 @@ $(document).ready(function() {
 		roleModalDirty = false
 		$('#roles-picker-modal').modal('hide')
 		$('#roles-btn-checkmark').hide()
+		$('#roles-notice').show()
+		$('#roles-notice').show()
 		$('#btn-choose-champions').attr('disabled', 'disabled')
 
 		resetChampionModal()
@@ -61,6 +64,7 @@ $(document).ready(function() {
 			roleModalDirty = false
 			$('#btn-choose-champions').removeAttr('disabled')
 			$('#roles-btn-checkmark').show()
+			$('#roles-notice').hide()
 
 			resetChampionModal()
 			$('.champions-list')
