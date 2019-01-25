@@ -45,7 +45,7 @@ div(style="background: #23283c; padding:1em; border-top: 5px solid #464d6b; bord
   if user
     if !user.isAdmin()
       div(style="margin-top:1em")
-        button(type='button', data-toggle='modal', data-target='#payment-modal').btn.btn-primary.btn-lg.btn-block.glow-primary Checkout now
+        button#checkout-btn(disabled type='button', data-toggle='modal', data-target='#payment-modal').btn.btn-primary.btn-lg.btn-block.glow-primary Checkout now
   else
     div(style="margin-top:1em")
       a(href="/signup").btn.btn-lg.btn-primary.btn-block Sign up to checkout
