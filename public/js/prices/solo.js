@@ -14,7 +14,7 @@ $(document).ready(function() {
 			$et.addClass('role-box--primary')
 			roleModalDirty = true
 			roles['primary'] = e.target.attributes.role.value
-		} else if (
+		} /* else if (
 			$('.role-box--selected').length == 1 &&
 			!$et.hasClass('role-box--primary')
 		) {
@@ -22,7 +22,7 @@ $(document).ready(function() {
 			$et.addClass('role-box--secondary')
 			roleModalDirty = true
 			roles['secondary'] = e.target.attributes.role.value
-		}
+		}*/
 	})
 
 	$('#roles-reset').click(function(e) {
@@ -58,7 +58,7 @@ $(document).ready(function() {
 			return false
 		}
 
-		if (Object.keys(roles).length == 2) {
+		if (Object.keys(roles).length == 1) {
 			boostOrder.roles = roles
 			$('#roles-picker-modal').modal('hide')
 			updateOrderPrice()
@@ -79,7 +79,8 @@ $(document).ready(function() {
 			})
 		} else {
 			$('#btn-choose-champions').attr('disabled', 'disabled')
-			alert('You must select exactly 2 different roles.')
+			//alert('You must select exactly 2 different roles.')
+			alert('You must select one role.')
 		}
 	})
 
@@ -131,7 +132,8 @@ $(document).ready(function() {
 			$('#champions-picker-modal').modal('hide')
 			$('#champions-btn-checkmark').show()
 		} else {
-			alert('You must select at least 3 champions for each role.')
+			//alert('You must select at least 3 champions for each role.')
+			alert('You must select at least 3 champions for this role.')
 		}
 	})
 
