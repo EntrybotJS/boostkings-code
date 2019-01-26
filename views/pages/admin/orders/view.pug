@@ -119,7 +119,7 @@ block admin-content
                       b Primary
                       |: 
                       = order.roles["primary"]
-                    if order.roles["secondary"].length > 0
+                    if order.roles["secondary"]
                       div
                         b Secondary
                         |: 
@@ -132,7 +132,7 @@ block admin-content
                       b= order.roles["primary"]
                       |: 
                       = order.champions[order.roles["primary"]].join(", ")
-                    if order.roles["secondary"].length > 0
+                    if order.roles["secondary"]
                       div
                         b= order.roles["secondary"]
                         |: 
