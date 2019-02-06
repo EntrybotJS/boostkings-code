@@ -27,15 +27,16 @@ if user
         select(style="width:100%; color:white; background-color: #3e476a; border: none; border-radius: 2px; text-align: center; font-size: 14px; transform: uppercase; padding: 6px 12px; font-weight: 500;")#server-select.wide
             for name, key in servers
               option(value=key)= name
-    if boostCategory == "solo"
-      <br>
-      span#roles-notice.text-danger You must choose your role
-      button#btn-choose-roles(type='button', data-toggle='modal', style="border:none;" data-target='#roles-picker-modal').btn.btn-block.btn-dark
-        | Choose your role
-        span#roles-btn-checkmark(style="display:none;")  ✓
-      button#btn-choose-champions(type='button', data-toggle='modal', disabled="disabled" style="border:none;" data-target='#champions-picker-modal').btn.btn-block.btn-dark
-        | Choose champions 
-        span#champions-btn-checkmark(style="display:none;")  ✓
+      .col-md-12
+        div
+          span#roles-notice.text-danger You must choose your role
+          button#btn-choose-roles(type='button', data-toggle='modal', style="border:none;" data-target='#roles-picker-modal').btn.btn-block.btn-dark
+            | Choose your role
+            span#roles-btn-checkmark(style="display:none;")  ✓
+          if boostCategory == "solo"
+            button#btn-choose-champions(type='button', data-toggle='modal', disabled="disabled" style="border:none;" data-target='#champions-picker-modal').btn.btn-block.btn-dark
+              | Choose champions 
+              span#champions-btn-checkmark(style="display:none;")  ✓
 
 div(style="background: #23283c; padding:1em; border-top: 5px solid #464d6b; border-radius:2px;")
   | Order total
