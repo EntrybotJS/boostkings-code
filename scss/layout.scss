@@ -579,7 +579,7 @@ $color-box-duo: rgb(107, 47, 47);
 	}
 	&--primary {
 		&:after {
-			content: '(Selected)';
+			content: '(primary)';
 			font-size: 0.8em;
 			margin-left: 6px;
 		}

@@ -59,8 +59,8 @@ function formIsValid() {
 		var itemsToCheck = [
 			lolUsernameVal,
 			lolPasswordVal,
-			lolIgnVal,
-			boostOrder.roles
+			lolIgnVal
+			//boostOrder.roles
 		]
 	} else {
 		var itemsToCheck = [lolIgnVal]
@@ -173,7 +173,7 @@ function updateOrderPrice(price) {
 
 	// Roles selection
 	if (boostOrder.roles && Object.keys(boostOrder.roles).length == 2) {
-		price += basePrice * 0.0
+		price += basePrice * 0.05
 	}
 
 	// Champions selection
@@ -183,7 +183,7 @@ function updateOrderPrice(price) {
 		boostOrder.champions &&
 		hasChampions(boostOrder.champions)
 	) {
-		price += basePrice * 0.1
+		price += basePrice * 0.05
 	}
 
 	price = parseFloat(Math.round(price * 100) / 100).toFixed(2)
