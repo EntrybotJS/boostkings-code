@@ -173,7 +173,7 @@ function updateOrderPrice(price) {
 
 	// Roles selection
 	if (boostOrder.roles && Object.keys(boostOrder.roles).length == 2) {
-		price += basePrice * 0.05
+		price += basePrice * roleExtra
 	}
 
 	// Champions selection
@@ -183,7 +183,7 @@ function updateOrderPrice(price) {
 		boostOrder.champions &&
 		hasChampions(boostOrder.champions)
 	) {
-		price += basePrice * 0.05
+		price += basePrice * roleExtra
 	}
 
 	price = parseFloat(Math.round(price * 100) / 100).toFixed(2)

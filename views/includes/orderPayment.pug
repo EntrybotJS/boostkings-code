@@ -58,24 +58,44 @@ if user
       .modal-content(style="max-width:500px;")
         .modal-body
           h2(style="margin-top:0;") Roles
-          p Specify primary and secondary roles. 5% extra.
-          .role-box(role="top")
-            img(style="pointer-events:none;" src="/img/icons/roles/top.png")
-            span(style="pointer-events:none;") Top
-          .role-box(role="jungle")
-            img(src="/img/icons/roles/jungler.png")
-            span(style="pointer-events:none;") Jungle
-          .role-box(role="mid")
-            img(src="/img/icons/roles/middle.png")
-            span(style="pointer-events:none;") Mid
-          .role-box(role="bot")
-            img(src="/img/icons/roles/bottom.png")
-            span(style="pointer-events:none;") Bottom
-          .role-box(role="support")
-            img(src="/img/icons/roles/support.png")
-            span(style="pointer-events:none;") Support
-          div
-            a(href="javascript:void(0)")#roles-reset.small Reset roles
+          if boostCategory == "duo"
+            p Specify primary and secondary roles.
+            .role-box(role="top")
+              img(style="pointer-events:none;" src="/img/icons/roles/top.png")
+              span(style="pointer-events:none;") Top
+            .role-box(role="jungle")
+              img(src="/img/icons/roles/jungler.png")
+              span(style="pointer-events:none;") Jungle
+            .role-box(role="mid")
+              img(src="/img/icons/roles/middle.png")
+              span(style="pointer-events:none;") Mid
+            .role-box(role="bot")
+              img(src="/img/icons/roles/bottom.png")
+              span(style="pointer-events:none;") Bottom
+            .role-box(role="support")
+              img(src="/img/icons/roles/support.png")
+              span(style="pointer-events:none;") Support
+            div
+              a(href="javascript:void(0)")#roles-reset.small Reset roles
+          else
+            p Specify primary and secondary roles. 5% extra.
+            .role-box(role="top")
+              img(style="pointer-events:none;" src="/img/icons/roles/top.png")
+              span(style="pointer-events:none;") Top
+            .role-box(role="jungle")
+              img(src="/img/icons/roles/jungler.png")
+              span(style="pointer-events:none;") Jungle
+            .role-box(role="mid")
+              img(src="/img/icons/roles/middle.png")
+              span(style="pointer-events:none;") Mid
+            .role-box(role="bot")
+              img(src="/img/icons/roles/bottom.png")
+              span(style="pointer-events:none;") Bottom
+            .role-box(role="support")
+              img(src="/img/icons/roles/support.png")
+              span(style="pointer-events:none;") Support
+            div
+              a(href="javascript:void(0)")#roles-reset.small Reset roles
 
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal')#roles-cancel Reset

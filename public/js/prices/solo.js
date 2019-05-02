@@ -1,3 +1,5 @@
+var roleExtra = 0.05
+
 $(document).ready(function() {
 	/**********************
 	 * ROLES

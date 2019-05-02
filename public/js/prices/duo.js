@@ -1,3 +1,5 @@
+var roleExtra = 0.00
+
 $(document).ready(function() {
 	// nothing's happening here, add anything here that is related to all duo boosts
 	//$('#checkout-btn').removeAttr('disabled')
@@ -37,7 +39,7 @@ $(document).ready(function() {
 		//$('#checkout-btn').attr('disabled', 'disabled')
 		$('#roles-notice').show()
 
-		resetChampionModal()
+		//resetChampionModal()
 		$('#champions-btn-checkmark').hide()
 	})
 
@@ -51,7 +53,7 @@ $(document).ready(function() {
 		$('#roles-notice').show()
 		$('#btn-choose-champions').attr('disabled', 'disabled')
 
-		resetChampionModal()
+		//resetChampionModal()
 		$('#champions-btn-checkmark').hide()
 	})
 
@@ -71,7 +73,7 @@ $(document).ready(function() {
 			$('#roles-notice').hide()
 			//$('#checkout-btn').removeAttr('disabled')
 
-			resetChampionModal()
+			//resetChampionModal()
 			$('.champions-list')
 				.hide()
 				.removeClass('champions-list--visible')
