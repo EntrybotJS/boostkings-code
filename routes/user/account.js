@@ -75,7 +75,7 @@ router.post(
           var smtpTransport = nodemailer.createTransport({
             service: "Gmail",
             auth: {
-              user: "weareboostkings@gmail.com",
+              user: "boostkingsverify@gmail.com",
               pass: process.env.BK_EMAIL_PASSWORD,
             },
           });
