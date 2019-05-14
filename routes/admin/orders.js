@@ -3,8 +3,7 @@ var router = express.Router()
 
 var nodemailer = require('nodemailer')
 var mg = require('nodemailer-mailgun-transport');
-var mg = require('nodemailer-mailgun-transport');
-var htmlToText = require('nodemailer-html-to-text').htmlToText
+var htmlToText = require('html-to-text')
 var pug = require('pug')
 
 var Models = require('../../models/schemas')
@@ -108,16 +107,7 @@ router.post(
 						return res.redirect(req.get('referer'))
 					}
 
-					// This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
-					var auth = {
-						auth: {
-							api_key: process.env.BK_EMAIL_API,
-							domain: process.env.BK_EMAIL_URL
-						}
-					}
-		
-					var smtpTransport = nodemailer.createTransport(mg(auth));
-					smtpTransport.use('compile', htmlToText())
+					var mailgun = require('mailgun-js')({apiKey: process.env.BK_EMAIL_API, domain: process.env.BK_EMAIL_URL});
 
 					var subject =
 						'Boost Kings - Boost completed (order #' +
@@ -128,8 +118,7 @@ router.post(
 						to: updatedOrder.user.email,
 						from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
 						subject: subject,
-						replyTo: 'boostkings@outlook.com',
-						html: pug.renderFile('views/emails/template.pug', {
+						text: htmlToText.fromString(pug.renderFile('views/emails/template.pug', {
 							subject: subject,
 							cta: {
 								url: process.env.HOST + '/orders',
@@ -159,10 +148,10 @@ router.post(
 									updatedOrder.confirmationNumber.toUpperCase() +
 									'</code>.'
 							]
-						})
+						}))
 					}
 
-					smtpTransport.sendMail(mailOptions, function(err) {
+					mailgun.messages().send(mailOptions, function(err, body) {
 						req.flash(
 							'success',
 							'Successfully marked as done. A confirmation email was sent to the customer.'

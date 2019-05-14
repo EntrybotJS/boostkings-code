@@ -8,7 +8,7 @@ var crypto = require("crypto");
 var nodemailer = require("nodemailer");
 var mg = require('nodemailer-mailgun-transport');
 
-var htmlToText = require("nodemailer-html-to-text").htmlToText;
+var htmlToText = require("html-to-text");
 var pug = require("pug");
 
 router.get("/:token", function(req, res) {
@@ -70,16 +70,7 @@ router.post("/:token", function(req, res) {
         });
       },
       function(user, done) {
-        var auth = {
-          auth: {
-            api_key: process.env.BK_EMAIL_API,
-            domain: process.env.BK_EMAIL_URL
-          }
-        }
-
-        var smtpTransport = nodemailer.createTransport(mg(auth));
-
-        smtpTransport.use("compile", htmlToText());
+        var mailgun = require('mailgun-js')({apiKey: process.env.BK_EMAIL_API, domain: process.env.BK_EMAIL_URL});
 
         var subject = "Boost Kings - Your password has been changed";
 
@@ -88,7 +79,7 @@ router.post("/:token", function(req, res) {
           from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
           subject: subject,
           replyTo: "boostkings@outlook.com",
-          html: pug.renderFile("views/emails/template.pug", {
+          text: htmlToText.fromString(pug.renderFile("views/emails/template.pug", {
             subject: subject,
             cta: {
               url: process.env.HOST + "/forgot",
@@ -99,10 +90,10 @@ router.post("/:token", function(req, res) {
               "The password for your Boost Kings account has just been changed.",
               "If you think someone else has changed your password, reset it by clicking the button below.",
             ],
-          }),
+          }))
         };
 
-        smtpTransport.sendMail(mailOptions, function(err) {
+        mailgun.messages().send(mailOptions, function(err, body) {
           req.flash("success", "Success! Your password has been changed.");
           done(err);
         });

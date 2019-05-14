@@ -7,7 +7,7 @@ var crypto = require("crypto");
 var nodemailer = require("nodemailer");
 var mg = require('nodemailer-mailgun-transport');
 
-var htmlToText = require("nodemailer-html-to-text").htmlToText;
+var htmlToText = require("html-to-text");
 var pug = require("pug");
 
 router.get("/", function(req, res, next) {
@@ -51,17 +51,7 @@ router.get(
                   });
                 },
                 function(user, done) {
-                  // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
-                  var auth = {
-                    auth: {
-                      api_key: process.env.BK_EMAIL_API,
-                      domain: process.env.BK_EMAIL_URL
-                    }
-                  }
-          
-                  var smtpTransport = nodemailer.createTransport(mg(auth));
-
-                  smtpTransport.use("compile", htmlToText());
+                  var mailgun = require('mailgun-js')({apiKey: process.env.BK_EMAIL_API, domain: process.env.BK_EMAIL_URL});
 
                   var subject = "Email address updated";
 
@@ -70,17 +60,17 @@ router.get(
                     from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
                     subject: subject,
                     replyTo: "boostkings@outlook.com",
-                    html: pug.renderFile("views/emails/template.pug", {
+                    text: htmlToText.fromString(pug.renderFile("views/emails/template.pug", {
                       subject: subject,
                       paragraphs: [
                         "Hi there,",
                         'You (or someone else) changed the email address for your account. If you did change your email address, great. If however you think this shouldn\'t be, please <a href="https://boostkings.lol/contact">contact us</a>.',
                         "Have fun!",
                       ],
-                    }),
+                    }))
                   };
 
-                  smtpTransport.sendMail(mailOptions, function(err) {
+                  mailgun.messages().send(mailOptions, function(err, body) {
                     done(err);
                   });
                 },

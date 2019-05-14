@@ -6,7 +6,7 @@ var moment = require('moment-timezone')
 
 var nodemailer = require('nodemailer')
 var mg = require('nodemailer-mailgun-transport');
-var htmlToText = require('nodemailer-html-to-text').htmlToText
+var htmlToText = require('html-to-text')
 var pug = require('pug')
 
 paypal.configure({
@@ -168,16 +168,8 @@ router.post(
 							.send('There was an error while saving your order.')
 					} else {
 						// send order confirmation
-						// This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
-						var auth = {
-							auth: {
-							  api_key: process.env.BK_EMAIL_API,
-							  domain: process.env.BK_EMAIL_URL
-							}
-						}
 		
-						var smtpTransport = nodemailer.createTransport(mg(auth));
-						smtpTransport.use('compile', htmlToText())
+						var mailgun = require('mailgun-js')({apiKey: process.env.BK_EMAIL_API, domain: process.env.BK_EMAIL_URL});
 
 						var subject =
 							'Boost Kings - Order Confirmation #' +
@@ -188,7 +180,7 @@ router.post(
 							from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
 							subject: subject,
 							replyTo: 'boostkings@outlook.com',
-							html: pug.renderFile('views/emails/template.pug', {
+							text: htmlToText.fromString(pug.renderFile('views/emails/template.pug', {
 								subject: subject,
 								cta: {
 									url: process.env.HOST + '/orders',
@@ -221,10 +213,10 @@ router.post(
 									'If you have any question regarding your purchase, ' +
 										'visit our website and start a live chat with our team, and mention your confirmation number (written above).'
 								]
-							})
+							}))
 						}
 
-						smtpTransport.sendMail(mailOptions, function(err) {
+						mailgun.messages().send(mailOptions, function(err) {
 							var response = {
 								id: savedOrder._id,
 								confirmationNumber: savedOrder.confirmationNumber.toUpperCase(),

@@ -8,7 +8,7 @@ var crypto = require("crypto");
 var nodemailer = require("nodemailer");
 var mg = require('nodemailer-mailgun-transport');
 
-var htmlToText = require("nodemailer-html-to-text").htmlToText;
+var htmlToText = require("html-to-text");
 var pug = require("pug");
 
 router.get(
@@ -52,16 +52,7 @@ router.post("/", function(req, res, next) {
         });
       },
       function(token, user, done) {
-        var auth = {
-          auth: {
-            api_key: process.env.BK_EMAIL_API,
-            domain: process.env.BK_EMAIL_URL
-          }
-        }
-
-        var smtpTransport = nodemailer.createTransport(mg(auth));
-
-        smtpTransport.use("compile", htmlToText());
+        var mailgun = require('mailgun-js')({apiKey: process.env.BK_EMAIL_API, domain: process.env.BK_EMAIL_URL});
 
         var subject = "Boost Kings - Password reset request";
 
@@ -70,7 +61,7 @@ router.post("/", function(req, res, next) {
           from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
           subject: subject,
           replyTo: "boostkings@outlook.com",
-          html: pug.renderFile("views/emails/template.pug", {
+          text: htmlToText.fromString(pug.renderFile("views/emails/template.pug", {
             subject: subject,
             cta: {
               url: process.env.HOST + "/reset/" + token,
@@ -81,10 +72,10 @@ router.post("/", function(req, res, next) {
               "You are receiving this because you (or someone else) have requested the reset of the password for your account.",
               "Please click on the following button to complete the process:",
             ],
-          }),
+          }))
         };
 
-        smtpTransport.sendMail(mailOptions, function(err) {
+        mailgun.messages().send(mailOptions, function(err, body) {
           console.log(err)
           req.flash("info", "An e-mail has been sent to " + user.email + " with further instructions.");
           done(err, "done");
