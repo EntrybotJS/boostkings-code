@@ -111,7 +111,11 @@ router.post(
 						host: process.env.BK_EMAIL_SERVICE,
 						port: process.env.BK_EMAIL_PORT,
 						auth: {
+<<<<<<< HEAD
 							user: process.env.BK_EMAIL_USERNAME,
+=======
+							user: process.env.BK_EMAIL,
+>>>>>>> c8d791dd84e88e8e57ca827a9f2335d7c02b59e3
 							pass: process.env.BK_EMAIL_PASSWORD
 						},
 						tls: {
@@ -128,7 +132,11 @@ router.post(
 
 					var mailOptions = {
 						to: updatedOrder.user.email,
+<<<<<<< HEAD
 						from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
+=======
+						from: 'Boost Kings <boostkigsverify@gmail.com>',
+>>>>>>> c8d791dd84e88e8e57ca827a9f2335d7c02b59e3
 						subject: subject,
 						replyTo: 'boostkings@outlook.com',
 						html: pug.renderFile('views/emails/template.pug', {
