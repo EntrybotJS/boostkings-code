@@ -76,7 +76,7 @@ router.post("/", function(req, res, next) {
         };
 
         mailgun.messages().send(mailOptions, function(err, body) {
-          console.log(err)
+          console.log(body)
           req.flash("info", "An e-mail has been sent to " + user.email + " with further instructions.");
           done(err, "done");
         });
