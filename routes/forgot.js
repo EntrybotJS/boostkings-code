@@ -85,6 +85,7 @@ router.post("/", function(req, res, next) {
         };
 
         smtpTransport.sendMail(mailOptions, function(err) {
+          console.log(err)
           req.flash("info", "An e-mail has been sent to " + user.email + " with further instructions.");
           done(err, "done");
         });
