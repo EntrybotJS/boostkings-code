@@ -70,16 +70,8 @@ router.post(
                   host: process.env.BK_EMAIL_SERVICE,
                   port: process.env.BK_EMAIL_PORT,
                   auth: {
-<<<<<<< HEAD
-<<<<<<< HEAD
                     user: process.env.BK_EMAIL_USERNAME,
                     pass: process.env.BK_EMAIL_PASSWORD
-=======
-=======
->>>>>>> c8d791dd84e88e8e57ca827a9f2335d7c02b59e3
-                    user: process.env.BK_EMAIL,
-                    pass: process.env.BK_EMAIL_PASSWORD,
->>>>>>> c8d791dd84e88e8e57ca827a9f2335d7c02b59e3
                   },
                   tls: {
                     // do not fail on invalid certs
@@ -93,15 +85,7 @@ router.post(
 
                 var mailOptions = {
                   to: req.body.email,
-<<<<<<< HEAD
-<<<<<<< HEAD
                   from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
-=======
-                  from: `Boost Kings <${process.env.BK_EMAIL}>`,
->>>>>>> c8d791dd84e88e8e57ca827a9f2335d7c02b59e3
-=======
-                  from: `Boost Kings <${process.env.BK_EMAIL}>`,
->>>>>>> c8d791dd84e88e8e57ca827a9f2335d7c02b59e3
                   subject: subject,
                   replyTo: "boostkings@outlook.com",
                   html: pug.renderFile("views/emails/template.pug", {
