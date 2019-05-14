@@ -99,7 +99,11 @@ router.post(
           var mailOptions = {
             to: req.body.email,
 <<<<<<< HEAD
+<<<<<<< HEAD
             from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
+=======
+            from: `Boost Kings <${process.env.BK_EMAIL}>`,
+>>>>>>> c8d791dd84e88e8e57ca827a9f2335d7c02b59e3
 =======
             from: `Boost Kings <${process.env.BK_EMAIL}>`,
 >>>>>>> c8d791dd84e88e8e57ca827a9f2335d7c02b59e3
