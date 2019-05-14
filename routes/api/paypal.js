@@ -168,10 +168,15 @@ router.post(
 					} else {
 						// send order confirmation
 						var smtpTransport = nodemailer.createTransport({
-							service: 'Gmail',
+							host: process.env.BK_EMAIL_SERVICE,
+							port: process.env.BK_EMAIL_PORT,
 							auth: {
-								user: 'weareboostkings@gmail.com',
+								user: process.env.BK_EMAIL_USERNAME,
 								pass: process.env.BK_EMAIL_PASSWORD
+							},
+							tls: {
+								// do not fail on invalid certs
+								rejectUnauthorized: false
 							}
 						})
 						smtpTransport.use('compile', htmlToText())
@@ -182,7 +187,7 @@ router.post(
 
 						var mailOptions = {
 							to: req.body.userEmail,
-							from: 'Boost Kings <weareboostkings@gmail.com>',
+							from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
 							subject: subject,
 							replyTo: 'boostkings@outlook.com',
 							html: pug.renderFile('views/emails/template.pug', {
