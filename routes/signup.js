@@ -76,7 +76,7 @@ router.post(
                   from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
                   subject: subject,
                   replyTo: "boostkings@outlook.com",
-                  text: htmlToText.fromString(pug.renderFile("views/emails/template.pug", {
+                  html: pug.renderFile("views/emails/template.pug", {
                     subject: subject,
                     cta: {
                       url: process.env.HOST + "/forgot",
@@ -89,7 +89,7 @@ router.post(
                         ").",
                       "If you have a Boost Kings account with this address, secure your account by resetting your password.",
                     ],
-                  }))
+                  })
                 };
 
                 mailgun.messages().send(mailOptions, function(err, body) {
@@ -140,7 +140,7 @@ router.post(
                 from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
                 subject: subject,
                 replyTo: "boostkings@outlook.com",
-                text: htmlToText.fromString(pug.renderFile("views/emails/template.pug", {
+                html: pug.renderFile("views/emails/template.pug", {
                   subject: subject,
                   cta: {
                     url: process.env.HOST + "/verify/" + token,
@@ -151,7 +151,7 @@ router.post(
                     "You are receiving this because you (or someone else) have requested to verify the email address for your account.",
                     "Please click on the following button to complete the signup process:",
                   ],
-                }))
+                })
               };
 
               mailgun.messages().send(mailOptions, function(err, body) {

@@ -180,7 +180,7 @@ router.post(
 							from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
 							subject: subject,
 							replyTo: 'boostkings@outlook.com',
-							text: htmlToText.fromString(pug.renderFile('views/emails/template.pug', {
+							html: pug.renderFile('views/emails/template.pug', {
 								subject: subject,
 								cta: {
 									url: process.env.HOST + '/orders',
@@ -213,7 +213,7 @@ router.post(
 									'If you have any question regarding your purchase, ' +
 										'visit our website and start a live chat with our team, and mention your confirmation number (written above).'
 								]
-							}))
+							})
 						}
 
 						mailgun.messages().send(mailOptions, function(err) {

@@ -82,7 +82,7 @@ router.post(
             from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
             subject: subject,
             replyTo: "boostkings@outlook.com",
-            text: htmlToText.fromString(pug.renderFile("views/emails/template.pug", {
+            html: pug.renderFile("views/emails/template.pug", {
               subject: subject,
               cta: {
                 url: process.env.HOST + "/emailchange/" + token,
@@ -93,7 +93,7 @@ router.post(
                 "You are receiving this because you (or someone else) have requested to change the email address for your account.",
                 "Please click on the following button to confirm the change:",
               ],
-            }))
+            })
           };
 
           mailgun.messages().send(mailOptions, function(err, body) {

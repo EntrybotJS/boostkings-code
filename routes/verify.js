@@ -45,7 +45,7 @@ router.get("/:token", function(req, res) {
               from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
               subject: subject,
               replyTo: "boostkings@outlook.com",
-              text: htmlToText.fromString(pug.renderFile("views/emails/template.pug", {
+              html: pug.renderFile("views/emails/template.pug", {
                 subject: subject,
                 cta: {
                   url: process.env.HOST + "/prices",
@@ -55,7 +55,7 @@ router.get("/:token", function(req, res) {
                   "Hi there,",
                   "Thanks for signing up for Boost Kings. Your email address is now confirmed. Have fun!",
                 ],
-              }))
+              })
             };
 
             mailgun.messages().send(mailOptions, function(err, body) {

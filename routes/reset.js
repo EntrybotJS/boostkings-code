@@ -79,7 +79,7 @@ router.post("/:token", function(req, res) {
           from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
           subject: subject,
           replyTo: "boostkings@outlook.com",
-          text: htmlToText.fromString(pug.renderFile("views/emails/template.pug", {
+          html: pug.renderFile("views/emails/template.pug", {
             subject: subject,
             cta: {
               url: process.env.HOST + "/forgot",
@@ -90,7 +90,7 @@ router.post("/:token", function(req, res) {
               "The password for your Boost Kings account has just been changed.",
               "If you think someone else has changed your password, reset it by clicking the button below.",
             ],
-          }))
+          })
         };
 
         mailgun.messages().send(mailOptions, function(err, body) {

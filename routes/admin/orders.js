@@ -118,7 +118,7 @@ router.post(
 						to: updatedOrder.user.email,
 						from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
 						subject: subject,
-						text: htmlToText.fromString(pug.renderFile('views/emails/template.pug', {
+						html: pug.renderFile('views/emails/template.pug', {
 							subject: subject,
 							cta: {
 								url: process.env.HOST + '/orders',
@@ -148,7 +148,7 @@ router.post(
 									updatedOrder.confirmationNumber.toUpperCase() +
 									'</code>.'
 							]
-						}))
+						})
 					}
 
 					mailgun.messages().send(mailOptions, function(err, body) {

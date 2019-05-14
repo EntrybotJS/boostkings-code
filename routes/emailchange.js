@@ -60,14 +60,14 @@ router.get(
                     from: `Boost Kings <${process.env.BK_EMAIL_ADDRESS}>`,
                     subject: subject,
                     replyTo: "boostkings@outlook.com",
-                    text: htmlToText.fromString(pug.renderFile("views/emails/template.pug", {
+                    html: pug.renderFile("views/emails/template.pug", {
                       subject: subject,
                       paragraphs: [
                         "Hi there,",
                         'You (or someone else) changed the email address for your account. If you did change your email address, great. If however you think this shouldn\'t be, please <a href="https://boostkings.lol/contact">contact us</a>.',
                         "Have fun!",
                       ],
-                    }))
+                    })
                   };
 
                   mailgun.messages().send(mailOptions, function(err, body) {
