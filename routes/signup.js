@@ -6,6 +6,7 @@ var User = mongoose.model("User");
 var async = require("async");
 var crypto = require("crypto");
 var nodemailer = require("nodemailer");
+var mg = require('nodemailer-mailgun-transport');
 
 var htmlToText = require("nodemailer-html-to-text").htmlToText;
 var pug = require("pug");
@@ -66,18 +67,15 @@ router.post(
           async.waterfall(
             [
               function(done) {
-                var smtpTransport = nodemailer.createTransport({
-                  host: process.env.BK_EMAIL_SERVICE,
-                  port: process.env.BK_EMAIL_PORT,
-                  auth: {
-                    user: process.env.BK_EMAIL_USERNAME,
-                    pass: process.env.BK_EMAIL_PASSWORD
-                  },
-                  tls: {
-                    // do not fail on invalid certs
-                    rejectUnauthorized: false
-                  }
-                });
+                // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
+              var auth = {
+                auth: {
+                  api_key: process.env.BK_EMAIL_API,
+                  domain: process.env.BK_EMAIL_URL
+                }
+              }
+
+              var smtpTransport = nodemailer.createTransport(mg(auth));
 
                 smtpTransport.use("compile", htmlToText());
 
@@ -143,18 +141,14 @@ router.post(
               });
             },
             function(token, user, done) {
-              var smtpTransport = nodemailer.createTransport({
-                host: process.env.BK_EMAIL_SERVICE,
-                port: process.env.BK_EMAIL_PORT,
+              var auth = {
                 auth: {
-                  user: process.env.BK_EMAIL,
-                  pass: process.env.BK_EMAIL_PASSWORD,
-                },
-                tls: {
-                  // do not fail on invalid certs
-                  rejectUnauthorized: false
+                  api_key: process.env.BK_EMAIL_API,
+                  domain: process.env.BK_EMAIL_URL
                 }
-              });
+              }
+      
+              var smtpTransport = nodemailer.createTransport(mg(auth));
               smtpTransport.use("compile", htmlToText());
 
               var subject = "Boost Kings - Verify your email address";

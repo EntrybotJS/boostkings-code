@@ -5,6 +5,7 @@ var paypal = require('paypal-rest-sdk')
 var moment = require('moment-timezone')
 
 var nodemailer = require('nodemailer')
+var mg = require('nodemailer-mailgun-transport');
 var htmlToText = require('nodemailer-html-to-text').htmlToText
 var pug = require('pug')
 
@@ -167,18 +168,15 @@ router.post(
 							.send('There was an error while saving your order.')
 					} else {
 						// send order confirmation
-						var smtpTransport = nodemailer.createTransport({
-							host: process.env.BK_EMAIL_SERVICE,
-							port: process.env.BK_EMAIL_PORT,
+						// This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
+						var auth = {
 							auth: {
-								user: process.env.BK_EMAIL_USERNAME,
-								pass: process.env.BK_EMAIL_PASSWORD
-							},
-							tls: {
-								// do not fail on invalid certs
-								rejectUnauthorized: false
+							  api_key: process.env.BK_EMAIL_API,
+							  domain: process.env.BK_EMAIL_URL
 							}
-						})
+						}
+		
+						var smtpTransport = nodemailer.createTransport(mg(auth));
 						smtpTransport.use('compile', htmlToText())
 
 						var subject =
