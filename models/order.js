@@ -73,7 +73,7 @@ var OrderSchema = mongoose.Schema({
   // The selected server for the order
   server: {
     type: String,
-    enum: ["na", "lan"],
+    enum: ["na", "lan", "eune", "euw", "oce"],
     required: true,
   },
   // The type of order
@@ -196,6 +196,18 @@ OrderSchema.methods.getServer = function() {
       break;
     case "lan":
       server.name = "LAN";
+      server.color = "#95C5F0";
+	  break;
+	case "eune":
+      server.name = "EUNE";
+      server.color = "#95C5F0";
+	  break;
+	case "euw":
+      server.name = "EUW";
+      server.color = "#95C5F0";
+	  break;
+	case "oce":
+      server.name = "OCE";
       server.color = "#95C5F0";
       break;
     default:

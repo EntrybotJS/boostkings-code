@@ -29,7 +29,10 @@ function preparePricesData(req, res, next) {
 	}
 	var servers = {
 		na: 'NA (North America)',
-		lan: 'LAN'
+		lan: 'LAN',
+		eune: 'EUNE',
+		euw: 'EUW',
+		oce: 'OCE'
 	}
 	var lpRanges = {
 		'0-20 LP': 0.0,
