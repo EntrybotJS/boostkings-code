@@ -41,7 +41,7 @@
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.1.1",
     "uglify-es": "^3.3.9",
-    "validator": "^8.0.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",
