@@ -7,7 +7,7 @@
     "scss": "node-sass -wo --include-path scss scss/main.scss public/css/main.min.css --output-style compressed"
   },
   "dependencies": {
-    "async": "^2.5.0",
+    "async": "^2.6.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
